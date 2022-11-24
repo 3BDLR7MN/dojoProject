@@ -112,8 +112,22 @@ public class LicensesInfo {
     
     @Override
 	public String toString() {
-            return "Licenses Info: " +
-            " Customer P.O Reference Number: " + getPoNumber() +
-            " Project Name as per RFP: " + getProjectName();	
+            return "{"
+                    + "\"customerName\": " + getCustomerName()
+                    + ",\"customerNumber\": " + getCustomerNumber()
+                    + ",\"siteNumber\": " + getSiteNumber()
+                    + ",\"projectName\": " + getProjectName()
+                    + ",\"christeningNumber\": " + getChristeningNumber()
+                    + ",\"christeningDate\": " + getChristeningDate()
+                    + ",\"poNumber\": " + getPoNumber()
+                    + ",\"poDate\": " + getPoDate()
+                    + ",\"customerContact\": " + getCustomerContact()
+                    + ",\"address\": " + getAddress()
+                    + ",\"quantity\": " + getQuantity()
+                    + ",\"kind\": " + getKind()
+                    + ",\"description\": " + getDescription()
+                    + ",\"partNumber\": " + getPartNumber()
+                    + ",\"counter\": " + getCounter()
+                    + "}";	
 	}
 }

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- this stylesheet is for dojo dijit style (claro specifically) -->
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css"
+      media="screen"
+    />
+    
+<link rel="stylesheet" type="text/css"
+	href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/resources/claroGrid.css">
+    
+        <!-- Dojo CDN Script -->
+    <script data-dojo-Config="parseOnLoad: true"
+	src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"></script>
+        
+
+<!-- load dojo and provide config via data attribute -->
+	
+	<script type="text/javascript">
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.TextBox");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit.layout.ContentPane");
+            dojo.require("dojox.grid.DataGrid");
+            
+            
+        </script>
+
+<style type="text/css">
+        .screen {height: 100%; width: 100%; margin: 0; padding: 0;};
+        </style>
+
+<title>License</title>
+
+    </head>
+
+    <body class="screen claro">
+        
+<div style="background: ghostwhite; width: 100%;  color: darkblue" align="center">
+           
+                <table cellpadding="0" cellspacing="0" border="1" id="gridId">
+		<thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>Project Name</th>
+                        <th>Edit License</th>
+                        <th>Print As PDF</th>
+                    </tr>
+                </thead>
+                
+                </table>
+            
+        <br>
+        </div>
+        
+        <a href="form.html">add new form</a>
+        
+        <script type="text/javascript">
+        require(["dojo",
+        	"dojo/dom",
+                "dojo/on",
+                "dojo/request",
+                "dojo/dom-construct",
+                "dojo/domReady!"],function(dojo, dom, on, request, domConstruct){
+                    var grid = dom.byId("gridId");
+                    dojo.ready(function(){
+        		request.post("view.jsp", {handleAs: "json"}).response.then(
+            			function(response) {
+                                    var dataStore = response.data;
+                                    for (obj of dataStore) {
+                                        var row = domConstruct.toDom(
+                                            `<tr>
+                                            <td>${obj.poNumber}</td>
+                                            <td>${obj.projectName}</td>
+                                            <td><a href='form.html?poNumber=${obj.poNumber}'>Edit</a></td>
+                                            <td><a href='#'>Print</a></td>
+                                            </tr>`
+                                       );
+                                        domConstruct.place(row, grid, "last");
+                                        console.log(obj);
+                                    }
+
+                                   // place the new row as the last child element of the grid
+                                    console.log(dataStore);
+            			},
+            			function(error) {
+            				console.log("error: " + error);
+            			});
+        		
+        	});
+        	
+        	
+        });
+        
+        </script>
+    </body>
+</html>

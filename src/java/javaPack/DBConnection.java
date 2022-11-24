@@ -52,6 +52,38 @@ public class DBConnection {
         return status;
     }
     
+    public static LicensesInfo getRecordById(int customerPONumber) {
+        LicensesInfo info = null;
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from forms where poNumber = ?");
+            ps.setInt(1, customerPONumber);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                info = new LicensesInfo();
+                info.setPoNumber(rs.getInt("poNumber"));
+                info.setCounter(rs.getInt("counter"));
+                
+                info.setCustomerName(rs.getString("customerName"));
+                info.setCustomerNumber(rs.getString("customerNumber"));
+                info.setSiteNumber(rs.getString("siteNumber"));
+                info.setProjectName(rs.getString("projectName"));
+                info.setChristeningNumber(rs.getString("christeningNumber"));
+                info.setChristeningDate(rs.getString("christeningDate"));
+                info.setPoDate(rs.getString("poDate"));
+                info.setCustomerContact(rs.getString("customerContact"));
+                info.setAddress(rs.getString("address"));
+                info.setQuantity(rs.getString("quantity"));
+                info.setKind(rs.getString("kind"));
+                info.setDescription(rs.getString("description"));
+                info.setPartNumber(rs.getString("partNumber"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
+    
     public static List<LicensesInfo> getAllRecords() {
         List<LicensesInfo> list = new ArrayList<LicensesInfo>();
 

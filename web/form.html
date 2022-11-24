@@ -247,6 +247,47 @@
     <script>
  // to count how many rows, default is 1
     var cnt = 1;
+    console.log(window.location.search)
+    
+    require([
+            "dojo/dom",
+            "dojo/on",
+            "dojo/dom-construct",
+            "dojo/request",
+            "dojo/domReady!"
+          ], function (dom, on, domConstruct, request) {
+              
+              
+              if (window.location.search.includes("poNumber")) {
+                var customerName = dom.byId("customerName");
+                var customerNumber = dom.byId("customerNumber");
+                var siteNumber = dom.byId("siteNumber");
+                var projectName = dom.byId("projectName");
+                var christeningNumber = dom.byId("christeningNumber");
+                var christeningDate = dom.byId("christeningDate");
+                var poNumber = dom.byId("poNumber");
+                var poDate = dom.byId("poDate");
+                var customerContact = dom.byId("customerContact");
+                var address = dom.byId("address");
+                var quantity1 = dom.byId("quantity1");
+                var kind1 = dom.byId("kind1");
+                var description1 = dom.byId("description1");
+                var partNumber1 = dom.byId("partNumber1");
+                var counter = dom.byId("counter");
+                
+                
+                request.post("edit.jsp",{
+                    data: {poNumber: window.location.search.substring(10)},
+        	}).response.then(
+                    function(response) {
+                        console.log(response.data)
+                    },
+                    function(error) {
+        		console.log("error: " + error);
+                    });
+            }
+    	});    
+    
     
     function addRow(){
     	// func for when "new row" button is clicked
@@ -258,6 +299,7 @@
             "dojo/dom-construct",
             "dojo/domReady!"
           ], function (dom, on, domConstruct) {
+            
             var table = dom.byId("tableList");
             var rowsbtn = dom.byId("rowsbtn");
             var counter = dom.byId("counter");
