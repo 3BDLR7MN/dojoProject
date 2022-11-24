@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- this stylesheet is for dojo dijit style (claro specifically) -->
+    <link
+      rel="stylesheet"
+      href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css"
+      media="screen"
+    />
+    
+        <!-- Dojo CDN Script -->
+    <script data-dojo-Config="parseOnLoad: true"
+	src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"></script>
+        
+
+<!-- load dojo and provide config via data attribute -->
+	
+	<script type="text/javascript">
+            dojo.require("dijit.form.Form");
+            dojo.require("dijit.form.TextBox");
+            dojo.require("dijit.form.Button");
+            dojo.require("dijit/layout/ContentPane");
+            dojo.require("dijit/form/NumberTextBox");
+            
+        </script>
+
+<style type="text/css">
+        .screen {height: 100%; width: 100%; margin: 0; padding: 0;};
+        </style>
+
+<title>License</title>
+
+    </head>
+
+    <body class="screen claro">
+        
+<div style="background: ghostwhite;" align="center">
+            <div align="center" style="width: 95%; color: darkblue">
+                <table cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="text-align: center" colspan="2">
+                                <p style="font-size: 220%; font-weight: bolder">
+                                    الشركة الوطنية لخدمة البيانات والحلول المتكاملة
+                                <br>National DataServe & Turnkey Solution Co</p>
+                            </td>
+                            <td>
+                                <img src="image/DSImg.png" style="width: 100%; text-align: center"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 50%">
+                           
+                            </td>
+                            <td style="width: 50%; text-align: right" colspan="2">
+                                <p style="font-size: 160%; font-weight: bolder">
+                                    رخصة إثبات الاستحقاق
+                                <br>Software license Proof of Entitlements</p>
+                            </td>
+                        </tr>
+                </table>
+            </div>
+        <br>
+        <span id="statusID"></span>
+        <br><br>
+        <div data-dojo-type="dijit.layout.ContentPane" id="content">
+                
+                <div data-dojo-type="dijit.form.Form" id="vinform" data-dojo-id="vinform" align="center">
+					<div>
+                    <table cellpadding="0" cellspacing="2" border="0" width="90%" style="background: white">
+                        <tr><td><br></td></tr>
+                        <tr>
+                            <td style="width: 25%">
+                                <label for="customerName">DataServe Customer Name</label>
+                            </td>
+                            <td style="width: 53%">
+                                <input data-dojo-type="dijit.form.TextBox" id="customerName" name="customerName" style="width: 100%; text-align: center"/>
+                            </td>    
+                            <td style="text-align: right; width: 22%">
+                                <label for="customerName">اسم العميل لدى داتاسيرف</label>
+                            </td>
+                        </tr>                        
+                        <tr>
+                            <td>
+                                <label for="customerNumber">DataServe Customer Number</label>            
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="customerNumber" name="customerNumber" style="width: 100%; text-align: center"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="customerNumber">رقم العميل لدى داتاسيرف</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="siteNumber">DataServe Site Number</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="siteNumber" name="siteNumber" style="width: 100%; text-align: center"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="siteNumber">رقم موقع داتاسيرف</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="projectName">Project Name as per RFP</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="projectName" name="projectName" style="width: 100%"/>
+                            </td>
+
+                            <td style="text-align: right">
+                                <label for="projectName">اسم المشروع</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="christeningNumber">Christening Number</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="christeningNumber" name="christeningNumber" style="width: 100%"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="christeningNumber">رقم التعميد</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="christeningDate">Christening Date</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="christeningDate" name="christeningDate" style="width: 100%"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="christeningDate">تاريخ التعميد</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="poNumber">Customer P.O Reference Number</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="poNumber" name="poNumber" style="width: 100%"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="poNumber">رقم العقد</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="poDate">P.O Date</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="poDate" name="poDate" style="width: 100%"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="poDate">تاريخ العقد</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="customerContact">Customer Contact</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="customerContact" name="customerContact" style="width: 100%"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="customerContact">رقم التواصل بالعميل</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label for="address">Address</label>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="address" name="address" style="width: 100%"/>
+                            </td>
+                            <td style="text-align: right">
+                                <label for="address">عنوان العميل</label>
+                            </td>
+                        </tr>
+                        <tr><td><br><br></td></tr>
+                    </table>
+
+                </div>
+                
+                <div align="center" style="color: darkblue">
+                    <br><br>
+                    <table cellpadding="0" cellspacing="0" width="65%">
+                        <tr>
+                            <td style="width: 50%; text-align: left">
+                                <h1>Licenses List</h1>
+                            </td>
+                            <td style="width: 50%; text-align: right">
+                                <h1>قائمة الرخص</h1>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+                <br><br>
+                <div align="center">
+                    <table id="tableList" cellpadding="0" cellspacing="0" width="90%">
+
+                        <tr>
+                            <th align="center" style="width: 20%; height: 50px; background: darkblue; color: white">الكمية<br>Quantity</th>
+                            <th align="center" style="width: 20%; height: 50px; background: darkblue; color: white">النوع<br>Type</th>
+                            <th align="center" style="width: 45%; height: 50px; background: darkblue; color: white">الوصف<br>Description</th>
+                            <th align="center" style="width: 15%; height: 50px; background: darkblue; color: white">الرقم<br>Part Number</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="quantity1" name="quantity1" style="width: 100%; height: 45px"/>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="kind1" name="kind1" style="width: 100%; height: 45px"/>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="description1" name="description1" style="width: 100%; height: 45px"/>
+                            </td>
+                            <td>
+                                <input data-dojo-type="dijit.form.TextBox" id="partNumber1" name="partNumber1" style="width: 100%; height: 45px"/>
+                            </td>
+                        </tr>
+
+                    </table>
+                    <button data-dojo-type="dijit.form.Button" data-dojo-props="iconClass:'dijitIconTable dijitIconTable',
+                     showLabel: false" type="button" onclick="addRow()" id="rowsbtn">Add License</button>
+                </div> 
+                <br>
+                <div align="right" style="width: 90%">
+                    <button data-dojo-type="dijit.form.Button" type="submit" onclick="doit()">Save</button>
+                    <button data-dojo-type="dijit.form.Button" id="savepdf" onclick="savepdf()">Save As PDF</button>
+                    <input type="hidden" id="counter" name="counter" value="1" />
+                </div>
+
+                <br>
+                
+            </div>
+        
+        </div>
+        </div>
+            <!-- Dojo Script -->
+    <script>
+ // to count how many rows, default is 1
+    var cnt = 1;
+    
+    function addRow(){
+    	// func for when "new row" button is clicked
+    	
+    	
+    	require([
+            "dojo/dom",
+            "dojo/on",
+            "dojo/dom-construct",
+            "dojo/domReady!"
+          ], function (dom, on, domConstruct) {
+            var table = dom.byId("tableList");
+            var rowsbtn = dom.byId("rowsbtn");
+            var counter = dom.byId("counter");
+            counter.value = 1;
+    	
+        on(rowsbtn, "click", function (e) {
+        	e.stopPropagation();
+           
+          counter.value = ++cnt;
+          // creating a new row with 4 cells
+          var row = domConstruct.toDom(
+           "<tr><td><input data-dojo-type='dijit.form.TextBox' id='quantity"+cnt+"' name='quantity"+cnt+"' style='width: 100%; height: 45px'/>"+
+           "</td><td><input data-dojo-type='dijit.form.TextBox' id='kind"+cnt+"' name='kind"+cnt+"' style='width: 100%; height: 45px'/>"+
+           "</td><td><input data-dojo-type='dijit.form.TextBox' id='description"+cnt+"' name='description"+cnt+"' style='width: 100%; height: 45px'/>"+
+           "</td><td><input data-dojo-type='dijit.form.TextBox' id='partNumber"+cnt+"' name='partNumber"+cnt+"' style='width: 100%; height: 45px'/>"+
+           "</td></tr>"
+          );
+
+          // place the new row as the last child element of the table
+          domConstruct.place(row, table, "last");
+        });
+    	});
+    }
+      
+      
+      function doit(){
+      require([
+        "dojo/dom",
+        "dojo/on",
+        "dojo/request",
+        "dojo/dom-form",
+        "dojo/domReady!"
+      ], function (dom, on, request, domForm) {
+        var form = dom.byId("vinform");
+        var statspan = dom.byId("statusID");
+        
+
+        // func for when form is submitted
+        on(form, "submit", function (evt) {
+        	evt.stopPropagation();
+        	evt.preventDefault();
+          // this will redirect the user to pdf.jsp
+          //window.location.href = "pdf.jsp";
+        	request.post("add.jsp",{
+        		data: domForm.toObject(form),
+        	}).response.then(
+        			function(response) {
+        				statspan.innerHTML = response.data+" I have changed!";
+        				form.reset();
+        			},
+        			function(error) {
+        				console.log("error: " + error);
+        			});
+        });
+      });
+      }
+    </script>
+    </body>
+</html>
