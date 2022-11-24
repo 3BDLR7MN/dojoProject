@@ -7,10 +7,8 @@
         // we create a new object of the class defiend in java that makes the connection
         DBConnection con = new DBConnection();
 
-        // create new object of this class to store all form passed data into it
-        LicensesInfo info = new LicensesInfo();
-        
-        con.getRecordById(request.getParameter("poNumber"));
+        // create new object of this class to store all form passed data into it        
+        out.print(con.getRecordById(Integer.parseInt(request.getParameter("poNumber"))));
 
     } catch (Exception e){
         out.print(e);
