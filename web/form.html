@@ -236,6 +236,7 @@
                     <button data-dojo-type="dijit.form.Button" id="savepdf" onclick="savepdf()">Save As PDF</button>
                     <button data-dojo-type="dijit.form.Button" id="delete" onclick="deleteRecord()" hidden="hidden" style="display: none">Delete Record</button>
                     <input type="hidden" id="counter" name="counter" value="1" />
+                    <input type="hidden" id="newRecord" name="newRecord" value="1" />
                 </div>
 
                 <br>
@@ -273,6 +274,7 @@
               
               
               if (window.location.search.includes("poNumber")) {
+                dom.byId("newRecord").value = 0;
                 var table = dom.byId("tableList");
                 
                 var deletebtn = dom.byId("delete");
@@ -322,6 +324,7 @@
                         description1.setAttribute("value", description[0]);
                         partNumber1.setAttribute("value", partNumber[0]);
                         counter.setAttribute("value", data.counter);
+                        cnt = data.counter;
                         
                         
                         for (var i = 2; i <= counter.value; i++){
