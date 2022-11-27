@@ -234,6 +234,7 @@
                 <div align="right" style="width: 90%">
                     <button data-dojo-type="dijit.form.Button" type="submit" onclick="doit()">Save</button>
                     <button data-dojo-type="dijit.form.Button" id="savepdf" onclick="savepdf()">Save As PDF</button>
+                    <button data-dojo-type="dijit.form.Button" id="delete" onclick="deleteRecord()" hidden="hidden">Delete Record</button>
                     <input type="hidden" id="counter" name="counter" value="1" />
                 </div>
 
@@ -247,6 +248,20 @@
     <script>
  // to count how many rows, default is 1
     var cnt = 1;
+    
+    function deleteRecord() {
+        require (["dojo/request"], function(request){
+            request.post("delete.jsp",{
+                data: {poNumber: window.location.search.substring(10)}
+            }).response.then(
+                function(response) {
+                    console.log(response);
+                },
+                function(error) {
+                    console.log("error: " + error);
+                });
+        })
+    }
         
     require([
             "dojo/dom",
@@ -258,6 +273,9 @@
               
               
               if (window.location.search.includes("poNumber")) {
+                var deletebtn = dom.byId("delete");
+                deletebtn.removeAttribute("hidden");
+                
                 var customerName = dom.byId("customerName");
                 var customerNumber = dom.byId("customerNumber");
                 var siteNumber = dom.byId("siteNumber");
@@ -274,9 +292,11 @@
                 var partNumber1 = dom.byId("partNumber1");
                 var counter = dom.byId("counter");
                 
+                poNumber.setAttribute('disabled', '');
+                
                 
                 request.post("edit.jsp",{
-                    data: {poNumber: window.location.search.substring(10)},
+                    data: {poNumber: window.location.search.substring(10)}
         	}).response.then(
                     function(response) {
                         var data = JSON.parse(response.data);
@@ -349,6 +369,7 @@
       ], function (dom, on, request, domForm) {
         var form = dom.byId("vinform");
         var statspan = dom.byId("statusID");
+        poNumber.removeAttribute('disabled');
         
 
         // func for when form is submitted
@@ -361,7 +382,8 @@
         		data: domForm.toObject(form),
         	}).response.then(
         			function(response) {
-        				statspan.innerHTML = response.data+" I have changed!";
+                                        location.reload();
+        				statspan.innerHTML = response.data+" I have changed!"; // no longer showing!
         				form.reset();
         			},
         			function(error) {

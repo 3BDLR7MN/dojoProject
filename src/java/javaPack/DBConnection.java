@@ -128,4 +128,17 @@ public class DBConnection {
         
         return list;
     }
+    
+    public static int deleteRecord(int customerPONumber) {
+        int status = 0;
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("DELETE from forms where poNumber = ?");
+            ps.setInt(1, customerPONumber);
+            status = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return status;
+    }
 }
