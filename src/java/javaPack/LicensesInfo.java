@@ -113,21 +113,21 @@ public class LicensesInfo {
     @Override
 	public String toString() {
             return "{"
-                    + "\"customerName\": " + getCustomerName()
-                    + ",\"customerNumber\": " + getCustomerNumber()
-                    + ",\"siteNumber\": " + getSiteNumber()
-                    + ",\"projectName\": " + getProjectName()
-                    + ",\"christeningNumber\": " + getChristeningNumber()
-                    + ",\"christeningDate\": " + getChristeningDate()
-                    + ",\"poNumber\": " + getPoNumber()
-                    + ",\"poDate\": " + getPoDate()
-                    + ",\"customerContact\": " + getCustomerContact()
-                    + ",\"address\": " + getAddress()
-                    + ",\"quantity\": " + getQuantity()
-                    + ",\"kind\": " + getKind()
-                    + ",\"description\": " + getDescription()
-                    + ",\"partNumber\": " + getPartNumber()
-                    + ",\"counter\": " + getCounter()
+                    + "\"customerName\": \"" + getCustomerName() + "\""
+                    + ",\"customerNumber\": \"" + getCustomerNumber() + "\""
+                    + ",\"siteNumber\": \"" + getSiteNumber() + "\""
+                    + ",\"projectName\": \"" + getProjectName() + "\""
+                    + ",\"christeningNumber\": \"" + getChristeningNumber() + "\""
+                    + ",\"christeningDate\": \"" + getChristeningDate() + "\""
+                    + ",\"poNumber\": \"" + getPoNumber() + "\""
+                    + ",\"poDate\": \"" + getPoDate() + "\""
+                    + ",\"customerContact\": \"" + getCustomerContact() + "\""
+                    + ",\"address\": \"" + getAddress() + "\""
+                    + ",\"quantity\": \"" + getQuantity() + "\""
+                    + ",\"kind\": \"" + getKind() + "\""
+                    + ",\"description\": \"" + getDescription() + "\""
+                    + ",\"partNumber\": \"" + getPartNumber() + "\""
+                    + ",\"counter\": \"" + getCounter() + "\""
                     + "}";	
 	}
 }

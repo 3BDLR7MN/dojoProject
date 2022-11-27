@@ -234,7 +234,7 @@
                 <div align="right" style="width: 90%">
                     <button data-dojo-type="dijit.form.Button" type="submit" onclick="doit()">Save</button>
                     <button data-dojo-type="dijit.form.Button" id="savepdf" onclick="savepdf()">Save As PDF</button>
-                    <button data-dojo-type="dijit.form.Button" id="delete" onclick="deleteRecord()" hidden="hidden">Delete Record</button>
+                    <button data-dojo-type="dijit.form.Button" id="delete" onclick="deleteRecord()" hidden="hidden" style="display: none">Delete Record</button>
                     <input type="hidden" id="counter" name="counter" value="1" />
                 </div>
 
@@ -275,6 +275,7 @@
               if (window.location.search.includes("poNumber")) {
                 var deletebtn = dom.byId("delete");
                 deletebtn.removeAttribute("hidden");
+                deletebtn.style.display = "inline-block";
                 
                 var customerName = dom.byId("customerName");
                 var customerNumber = dom.byId("customerNumber");
@@ -376,13 +377,22 @@
         on(form, "submit", function (evt) {
         	evt.stopPropagation();
         	evt.preventDefault();
-          // this will redirect the user to pdf.jsp
-          //window.location.href = "pdf.jsp";
+                for (var i = 2; i <= cnt; i++) {
+                    dom.byId("quantity1").value += "#" + dom.byId(`quantity${i}`).value;
+                    dom.byId("kind1").value += "#" + dom.byId(`kind${i}`).value;
+                    dom.byId("description1").value += "#" + dom.byId(`description${i}`).value;
+                    dom.byId("partNumber1").value += "#" + dom.byId(`partNumber${i}`).value;
+                }
+                console.log("test");
+                console.log(dom.byId("quantity1").value);
+                console.log(dom.byId("kind1").value);
+                console.log(dom.byId("description1").value);
+                console.log(dom.byId("partNumber1").value);
         	request.post("add.jsp",{
         		data: domForm.toObject(form),
         	}).response.then(
         			function(response) {
-                                        location.reload();
+//                                        location.reload();
         				statspan.innerHTML = response.data+" I have changed!"; // no longer showing!
         				form.reset();
         			},
