@@ -26,7 +26,7 @@
         info.setDescription(request.getParameter("description1"));
         info.setPartNumber(request.getParameter("partNumber1"));
         
-        con.create(info);
+        con.save(info);
 
     } catch (Exception e){
         out.print(e);

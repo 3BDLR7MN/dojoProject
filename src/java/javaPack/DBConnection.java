@@ -19,27 +19,38 @@ public class DBConnection {
         return con;
     }
     
-    public static int create(LicensesInfo info) {
+    public static int save(LicensesInfo info) {
         int status = 0;
+        String sql = "";
+        LicensesInfo infoExists = getRecordById(info.getPoNumber());
         try {
             Connection con = getConnection();
-            if(con != null){               
-                PreparedStatement ps = con.prepareStatement("INSERT INTO forms(customerName, customerNumber, siteNumber, projectName, christeningNumber, christeningDate, poNumber, poDate, customerContact, address, quantity, kind, description, partNumber, counter) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+            if(con != null){ 
+                
+                if(infoExists != null) {
+                    sql = "UPDATE forms SET customerName = ?, customerNumber = ?, siteNumber = ?, projectName = ?, christeningNumber = ?, christeningDate = ?, poDate = ?, customerContact = ?, address = ?, quantity = ?, kind = ?, description = ?, partNumber = ?, counter = ? WHERE forms.poNumber = ?";
+                } else if (infoExists == null) {
+                    sql = "INSERT INTO forms(customerName, customerNumber, siteNumber, projectName, christeningNumber, christeningDate, poDate, customerContact, address, quantity, kind, description, partNumber, counter, poNumber) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                } else {
+                    return status;
+                }
+                
+                PreparedStatement ps = con.prepareStatement(sql);
                 ps.setString(1, info.getCustomerName());
                 ps.setString(2, info.getCustomerNumber());
                 ps.setString(3, info.getSiteNumber());
                 ps.setString(4, info.getProjectName());
                 ps.setString(5, info.getChristeningNumber());
                 ps.setString(6, info.getChristeningDate());
-                ps.setInt(7, info.getPoNumber());
-                ps.setString(8, info.getPoDate());
-                ps.setString(9, info.getCustomerContact());
-                ps.setString(10, info.getAddress());
-                ps.setString(11, info.getQuantity());
-                ps.setString(12, info.getKind());
-                ps.setString(13, info.getDescription());
-                ps.setString(14, info.getPartNumber());
-                ps.setInt(15, info.getCounter());
+                ps.setString(7, info.getPoDate());
+                ps.setString(8, info.getCustomerContact());
+                ps.setString(9, info.getAddress());
+                ps.setString(10, info.getQuantity());
+                ps.setString(11, info.getKind());
+                ps.setString(12, info.getDescription());
+                ps.setString(13, info.getPartNumber());
+                ps.setInt(14, info.getCounter());
+                ps.setInt(15, info.getPoNumber());
                 status = ps.executeUpdate();
             } else {
                 System.out.println("Problem with connection please try again later!");

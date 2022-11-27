@@ -247,8 +247,7 @@
     <script>
  // to count how many rows, default is 1
     var cnt = 1;
-    console.log(window.location.search)
-    
+        
     require([
             "dojo/dom",
             "dojo/on",
@@ -280,7 +279,22 @@
                     data: {poNumber: window.location.search.substring(10)},
         	}).response.then(
                     function(response) {
-                        console.log(response.data)
+                        var data = JSON.parse(response.data);
+                        customerName.setAttribute("value", data.customerName);
+                        customerNumber.setAttribute("value", data.customerNumber);
+                        siteNumber.setAttribute("value", data.siteNumber);
+                        projectName.setAttribute("value", data.projectName);
+                        christeningNumber.setAttribute("value", data.christeningNumber);
+                        christeningDate.setAttribute("value", data.christeningDate);
+                        poNumber.setAttribute("value", data.poNumber);
+                        poDate.setAttribute("value", data.poDate);
+                        customerContact.setAttribute("value", data.customerContact);
+                        address.setAttribute("value", data.address);
+                        quantity1.setAttribute("value", data.quantity);
+                        kind1.setAttribute("value", data.kind);
+                        description1.setAttribute("value", data.description);
+                        partNumber1.setAttribute("value", data.partNumber);
+                        counter.setAttribute("value", data.counter);
                     },
                     function(error) {
         		console.log("error: " + error);
