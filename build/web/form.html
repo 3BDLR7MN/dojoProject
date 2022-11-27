@@ -255,7 +255,7 @@
                 data: {poNumber: window.location.search.substring(10)}
             }).response.then(
                 function(response) {
-                    console.log(response);
+                    document.location.href = "index.html";
                 },
                 function(error) {
                     console.log("error: " + error);
@@ -273,6 +273,8 @@
               
               
               if (window.location.search.includes("poNumber")) {
+                var table = dom.byId("tableList");
+                
                 var deletebtn = dom.byId("delete");
                 deletebtn.removeAttribute("hidden");
                 deletebtn.style.display = "inline-block";
@@ -311,11 +313,29 @@
                         poDate.setAttribute("value", data.poDate);
                         customerContact.setAttribute("value", data.customerContact);
                         address.setAttribute("value", data.address);
-                        quantity1.setAttribute("value", data.quantity);
-                        kind1.setAttribute("value", data.kind);
-                        description1.setAttribute("value", data.description);
-                        partNumber1.setAttribute("value", data.partNumber);
+                        var quantity = data.quantity.split("#");
+                        var kind = data.kind.split("#");
+                        var description = data.description.split("#");
+                        var partNumber = data.partNumber.split("#");
+                        quantity1.setAttribute("value", quantity[0]);
+                        kind1.setAttribute("value", kind[0]);
+                        description1.setAttribute("value", description[0]);
+                        partNumber1.setAttribute("value", partNumber[0]);
                         counter.setAttribute("value", data.counter);
+                        
+                        
+                        for (var i = 2; i <= counter.value; i++){
+                            var row = domConstruct.toDom(
+                            "<tr><td><input id='quantity"+counter.value+"' name='quantity"+counter.value+"' value='"+ quantity[i-1] +"' style='width: 100%; height: 45px'/>"+
+                            "</td><td><input id='kind"+counter.value+"' name='kind"+counter.value+"' value='"+ kind[i-1] +"' style='width: 100%; height: 45px'/>"+
+                            "</td><td><input id='description"+counter.value+"' name='description"+counter.value+"' value='"+ description[i-1] +"' style='width: 100%; height: 45px'/>"+
+                            "</td><td><input id='partNumber"+counter.value+"' name='partNumber"+counter.value+"' value='"+ partNumber[i-1] +"' style='width: 100%; height: 45px'/>"+
+                            "</td></tr>"
+                           );
+
+                           // place the new row as the last child element of the table
+                           domConstruct.place(row, table, "last");
+                        }
                     },
                     function(error) {
         		console.log("error: " + error);
@@ -346,7 +366,7 @@
           counter.value = ++cnt;
           // creating a new row with 4 cells
           var row = domConstruct.toDom(
-           "<tr><td><input data-dojo-type='dijit.form.TextBox' id='quantity"+cnt+"' name='quantity"+cnt+"' style='width: 100%; height: 45px'/>"+
+           "<tr id='row"+cnt+"'><td><input data-dojo-type='dijit.form.TextBox' id='quantity"+cnt+"' name='quantity"+cnt+"' style='width: 100%; height: 45px'/>"+
            "</td><td><input data-dojo-type='dijit.form.TextBox' id='kind"+cnt+"' name='kind"+cnt+"' style='width: 100%; height: 45px'/>"+
            "</td><td><input data-dojo-type='dijit.form.TextBox' id='description"+cnt+"' name='description"+cnt+"' style='width: 100%; height: 45px'/>"+
            "</td><td><input data-dojo-type='dijit.form.TextBox' id='partNumber"+cnt+"' name='partNumber"+cnt+"' style='width: 100%; height: 45px'/>"+
@@ -366,8 +386,9 @@
         "dojo/on",
         "dojo/request",
         "dojo/dom-form",
+        "dojo/dom-construct",
         "dojo/domReady!"
-      ], function (dom, on, request, domForm) {
+      ], function (dom, on, request, domForm, domConstruct) {
         var form = dom.byId("vinform");
         var statspan = dom.byId("statusID");
         poNumber.removeAttribute('disabled');
@@ -383,18 +404,19 @@
                     dom.byId("description1").value += "#" + dom.byId(`description${i}`).value;
                     dom.byId("partNumber1").value += "#" + dom.byId(`partNumber${i}`).value;
                 }
-                console.log("test");
-                console.log(dom.byId("quantity1").value);
-                console.log(dom.byId("kind1").value);
-                console.log(dom.byId("description1").value);
-                console.log(dom.byId("partNumber1").value);
         	request.post("add.jsp",{
         		data: domForm.toObject(form),
         	}).response.then(
         			function(response) {
+                                    console.log(cnt)
 //                                        location.reload();
+                                        for (var i = 2; i <=cnt; i++) {
+                                            domConstruct.destroy(dom.byId(`row${i}`));
+                                        }
+                                        cnt = 1
         				statspan.innerHTML = response.data+" I have changed!"; // no longer showing!
         				form.reset();
+                                    console.log(cnt)
         			},
         			function(error) {
         				console.log("error: " + error);
