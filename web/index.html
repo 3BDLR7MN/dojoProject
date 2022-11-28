@@ -55,17 +55,19 @@
     <!-- Button trigger modal -->
     <div class="my-5 text-center">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Record</button>
+      <input class="ms-2 my-3" type="search" id="myInput" placeholder="Search">
     </div>
+    
 
     <!-- Striped table -->
     <div class="container mt-3">
-      <table class="table table-striped text-center">
+      <table id="myTable" class="table table-striped text-center">
         <thead>
           <tr>
             <th scope="col">Project Number</th>
             <th scope="col">Project Name</th>
-            <th scope="col">Edit</th>
-            <th scope="col">Print</th>
+            <th class="skip-filter" scope="col">Edit</th>
+            <th class="skip-filter" scope="col">Print</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
@@ -85,7 +87,7 @@
 
           <!-- Modal body -->
           <div class="modal-body">
-            <form>
+            <form method="post" id="myForm">
               <div class="mb-3">
                 <div class="d-flex justify-content-between">
                   <label for="customerName" class="col-form-label">DataServe Customer Name:</label>
@@ -166,43 +168,48 @@
                 <input type="text" class="form-control text-center" id="address" name="address" required/>
               </div>
               
-              <div class="mb-3 row">
-                <div class="col-sm-3">      
-                  <div class="d-flex justify-content-between">
-                    <label for="quantity1" class="col-form-label">Quantity:</label>
-                    <label for="quantity1" class="col-form-label">:الكمية</label>
+              <div id="rowBody">
+                <div class="mb-3 row" id="row1">
+                  <div class="col-sm-3">      
+                    <div class="d-flex justify-content-between">
+                      <label for="quantity1" class="col-form-label">Quantity:</label>
+                      <label for="quantity1" class="col-form-label">:الكمية</label>
+                    </div>
+                    <input type="text" class="form-control text-center" id="quantity1" name="quantity1" pattern="^[0-9*#+]+$" required/>
                   </div>
-                  <input type="number" class="form-control text-center" id="quantity1" name="quantity1" required/>
-                </div>
-                
-                <div class="col-sm-3">      
-                  <div class="d-flex justify-content-between">
-                    <label for="kind1" class="col-form-label">Type:</label>
-                    <label for="kind1" class="col-form-label">:النوع</label>
+
+                  <div class="col-sm-3">      
+                    <div class="d-flex justify-content-between">
+                      <label for="kind1" class="col-form-label">Type:</label>
+                      <label for="kind1" class="col-form-label">:النوع</label>
+                    </div>
+                    <input type="text" class="form-control text-center" id="kind1" name="kind1" required/>
                   </div>
-                  <input type="text" class="form-control text-center" id="kind1" name="kind1" required/>
-                </div>
-                
-                <div class="col-sm-3">      
-                  <div class="d-flex justify-content-between">
-                    <label for="description1" class="col-form-label">Description:</label>
-                    <label for="description1" class="col-form-label">:الوصف</label>
+
+                  <div class="col-sm-3">      
+                    <div class="d-flex justify-content-between">
+                      <label for="description1" class="col-form-label">Description:</label>
+                      <label for="description1" class="col-form-label">:الوصف</label>
+                    </div>
+                    <input type="text" class="form-control text-center" id="description1" name="description1" required/>
                   </div>
-                  <input type="text" class="form-control text-center" id="description1" name="description1" required/>
-                </div>
-                
-                <div class="col-sm-3">      
-                  <div class="d-flex justify-content-between">
-                    <label for="partNumber1" class="col-form-label">Part Number:</label>
-                    <label for="partNumber1" class="col-form-label">:الرقم</label>
+
+                  <div class="col-sm-3">      
+                    <div class="d-flex justify-content-between">
+                      <label for="partNumber1" class="col-form-label">Part Number:</label>
+                      <label for="partNumber1" class="col-form-label">:الرقم</label>
+                    </div>
+                    <input type="text" class="form-control text-center" id="partNumber1" name="partNumber1" required/>
                   </div>
-                  <input type="text" class="form-control text-center" id="partNumber1" name="partNumber1" required/>
                 </div>
               </div>
               
               <div class="col-auto text-center">
-                <button type="submit" name="Submit" value="Add" class="btn btn-primary m-4">Add</button>
+                <button type="button" id="addRowBtn" class="btn btn-primary m-4">Add Row</button>
+                <button type="button" id="dltRowBtn" class="btn btn-danger m-4">Delete Row</button>
               </div>
+              
+              <input type="hidden" id="counter" name="counter" value="1" />
               
             </form>
           </div>
@@ -210,22 +217,34 @@
           <!-- Modal footer -->
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save Record</button>
+            <button type="submit" form="myForm" class="btn btn-success">Save Record</button>
           </div>
         </div>
       </div>
     </div>
 
     <script type="text/javascript">
+      var editIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>`
+      var printIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>`
+      var cnt = 1;
+      
       require([
         "dojo",
         "dojo/dom",
         "dojo/on",
         "dojo/request",
         "dojo/dom-construct",
+        "dojo/dom-form",
         "dojo/domReady!",
-      ], function (dojo, dom, on, request, domConstruct) {
+      ], function (dojo, dom, on, request, domConstruct, domForm) {
         var tbody = dom.byId("tbody");
+        var form = dom.byId("myForm");
+        var rowBody = dom.byId("rowBody");
+        var addRowBtn = dom.byId("addRowBtn");
+        var dltRowBtn = dom.byId("dltRowBtn");
+        var counter = dom.byId("counter");
+        
+        // striped table builder
         dojo.ready(function () {
           request.post("view.jsp", { handleAs: "json" }).response.then(
             function (response) {
@@ -235,18 +254,92 @@
                   `<tr>
                     <td>${obj.poNumber}</td>
                     <td>${obj.projectName}</td>
-                    <td><a href='form.html?poNumber=${obj.poNumber}'>Edit</a></td>
-                    <td><a href='#'>Print</a></td>
+                    <td><a href='form.html?poNumber=${obj.poNumber}'>${editIcon}</a></td>
+                    <td><a href='#'>${printIcon}</a></td>
                   </tr>`
                 );
                 domConstruct.place(row, tbody, "last");
-                console.log(obj);
               }
             },
             function (error) {
               console.log("error: " + error);
             }
           );
+        });
+        
+        // rows builder
+        on(addRowBtn, "click", function(){
+          counter.value = ++cnt;
+          var row = domConstruct.toDom(
+            `<div class="mb-3 row" id="row${cnt}">
+              <div class="col-sm-3">      
+                <input type="text" class="form-control text-center" id="quantity${cnt}" name="quantity${cnt}" pattern="^[0-9*#+]+$" required/>
+              </div>
+
+              <div class="col-sm-3">      
+                <input type="text" class="form-control text-center" id="kind${cnt}" name="kind${cnt}" required/>
+              </div>
+
+              <div class="col-sm-3">      
+                <input type="text" class="form-control text-center" id="description${cnt}" name="description${cnt}" required/>
+              </div>
+
+              <div class="col-sm-3">      
+                <input type="text" class="form-control text-center" id="partNumber${cnt}" name="partNumber${cnt}" required/>
+              </div>
+            </div>`
+          )
+          domConstruct.place(row, rowBody, "last");
+        })
+        
+        // rows destroyer
+        on(dltRowBtn, "click", function() {
+          if (cnt > 1) {
+            domConstruct.destroy(dom.byId(`row${cnt--}`));
+          }
+        })
+        
+        on(form, "submit", function(evt) {
+          evt.stopPropagation();
+          evt.preventDefault();
+          for (var i = 2; i <= cnt; i++) {
+            dom.byId("quantity1").value += "#" + dom.byId(`quantity${i}`).value;
+            dom.byId("kind1").value += "#" + dom.byId(`kind${i}`).value;
+            dom.byId("description1").value += "#" + dom.byId(`description${i}`).value;
+            dom.byId("partNumber1").value += "#" + dom.byId(`partNumber${i}`).value;
+          }
+          request.post("add.jsp",{
+        	data: domForm.toObject(form),
+          }).response.then(
+        	function(response) {
+              for (var i = cnt; i > 1; i--) {
+                domConstruct.destroy(dom.byId(`row${i}`));
+              }
+              cnt = 1;
+              counter.value = cnt;
+              form.reset();
+              location.reload();
+        	},
+        	function(error) {
+              console.log("error: " + error);
+        	});
+        })
+      });
+    </script>
+    
+    <!-- search algorithm -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="ddtf.js"></script>
+    <script>
+      $('#myTable').ddTableFilter();
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
         });
       });
     </script>
