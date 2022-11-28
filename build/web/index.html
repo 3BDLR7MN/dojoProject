@@ -182,8 +182,8 @@
               </div>
               
               <div class="col-auto text-center">
-                <button type="button" id="addRowBtn" class="btn btn-primary m-4">Add Row</button>
                 <button type="button" id="dltRowBtn" class="btn btn-danger m-4">Delete Row</button>
+                <button type="button" id="addRowBtn" class="btn btn-primary m-4">Add Row</button>
               </div>
               
               <input type="hidden" id="counter" name="counter" value="1" />
@@ -291,13 +291,17 @@
         	data: domForm.toObject(form),
           }).response.then(
         	function(response) {
-              for (var i = cnt; i > 1; i--) {
-                domConstruct.destroy(dom.byId(`row${i}`));
+              if (Number(response.data) === 0) {
+                alert("This record already exists!");
+              } else if (Number(response.data) === 1){
+                for (var i = cnt; i > 1; i--) {
+                  domConstruct.destroy(dom.byId(`row${i}`));
+                }
+                cnt = 1;
+                counter.value = cnt;
+                form.reset();
+                location.reload();
               }
-              cnt = 1;
-              counter.value = cnt;
-              form.reset();
-              location.reload();
         	},
         	function(error) {
               console.log("error: " + error);

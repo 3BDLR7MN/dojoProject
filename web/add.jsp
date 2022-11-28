@@ -27,9 +27,10 @@
         info.setPartNumber(request.getParameter("partNumber1"));
         
         if (con.getRecordById(info.getPoNumber()) != null && Integer.parseInt(request.getParameter("newRecord")) == 1) {
-            out.print("This record already exists");
+            out.print(0);
         } else {
             con.save(info);
+            out.print(1);
         }
         
 

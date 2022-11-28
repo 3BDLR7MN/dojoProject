@@ -150,16 +150,21 @@
         </div>
 
         <div class="col-auto text-center">
-          <button type="button" id="addRowBtn" class="btn btn-primary m-4">Add Row</button>
           <button type="button" id="dltRowBtn" class="btn btn-danger m-4">Delete Row</button>
+          <button type="button" id="addRowBtn" class="btn btn-primary m-4">Add Row</button>
         </div>
 
         <input type="hidden" id="counter" name="counter" value="1" />
         <input type="hidden" id="newRecord" name="newRecord" value="0" />
 
-        <div class="col-auto text-end">
-          <button type="submit" class="btn btn-success m-4">Update Record</button>
-          <button type="button" id="dltRecordBtn" class="btn btn-danger m-4">Delete Record</button>
+        <div class="col-auto d-flex justify-content-between">
+          <div>
+            <button type="button" id="cancelBtn" class="btn btn-secondary m-4" >Cancel</button>
+          </div>
+          <div>
+            <button type="button" id="dltRecordBtn" class="btn btn-danger m-4">Delete Record</button>
+            <button type="submit" class="btn btn-success m-4">Update Record</button>
+          </div>
         </div>
       </form>
     </div>
@@ -181,6 +186,7 @@
         var addRowBtn = dom.byId("addRowBtn");
         var dltRowBtn = dom.byId("dltRowBtn");
         var dltRecordBtn = dom.byId("dltRecordBtn");
+        var cancelBtn = dom.byId("cancelBtn");
         
         var customerName = dom.byId("customerName");
         var customerNumber = dom.byId("customerNumber");
@@ -325,6 +331,11 @@
               console.log("error: " + error);
             });
         });
+        
+        // cancel btn
+        on(cancelBtn, "click", function(){
+          document.location.href = "index.html";
+        })
       });
     </script>
   </body>
