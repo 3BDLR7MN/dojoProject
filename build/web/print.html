@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html id="html">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Dojo CDN Script -->
+    <script
+      data-dojo-Config="parseOnLoad: true"
+      src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"
+    ></script>
+
+    <style>
+      p {
+          background-color: darkblue;
+          color: white;
+      }
+    </style>
+
+    <title>Licenses</title>
+  </head>
+
+  <body>
+    <!-- container body -->
+    <div class="my-5 container">
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>DataServe Customer Name</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="customerName"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>اسم العميل لدى داتاسيرف</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>DataServe Customer Number</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="customerNumber"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>رقم العميل لدى داتاسيرف</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>DataServe Site Number</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="siteNumber"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>رقم موقع داتاسيرف</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>Project Name as per RFP</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="projectName"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>اسم المشروع</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>Christening Number</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="christeningNumber"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>رقم التعميد</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>Christening Date</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="christeningDate"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>تاريخ التعميد</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>Customer P.O Reference Number</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="poNumber"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>رقم العقد</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>P.O Date</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="poDate"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>تاريخ العقد</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>Customer Contact</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="customerContact"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>رقم التواصل بالعميل</span>
+          </div>
+        </div>
+      </div>
+      
+      <div class="mb-3">
+        <div class="row">
+          <div class="col-sm-4">
+            <span>Address</span>
+          </div>
+          <div class="col-sm-4 text-center">
+            <span id="address"></span>
+          </div>
+          <div class="col-sm-4 text-end">
+            <span>عنوان العميل</span>
+          </div>
+        </div>
+      </div>
+      
+      <div id="rowBody" class="text-center">
+        <div class="mb-3 row">
+          <div class="col-sm-3 px-0">
+            <p>الكمية<br>Quantity</p>
+            <span id="quantity1"></span>
+          </div>
+
+          <div class="col-sm-3 px-0">
+            <p>النوع<br>Type</p>
+            <span id="kind1"></span>
+          </div>
+
+          <div class="col-sm-3 px-0">
+            <p>الوصف<br>Description</p>
+            <span id="description1"></span>
+          </div>
+
+          <div class="col-sm-3 px-0">
+            <p>الرقم<br>Part Number</p>
+            <span id="partNumber1"></span>
+          </div>
+        </div>
+      </div>
+
+      <input type="hidden" id="counter" name="counter" value="1" />
+    </div>
+
+    <script>
+      var cnt = 1;
+
+      require([
+        "dojo",
+        "dojo/dom",
+        "dojo/on",
+        "dojo/request",
+        "dojo/dom-construct",
+        "dojo/dom-form",
+        "dojo/domReady!"
+      ], function (dojo, dom, on, request, domConstruct, domForm) {
+        var rowBody = dom.byId("rowBody");
+
+        var customerName = dom.byId("customerName");
+        var customerNumber = dom.byId("customerNumber");
+        var siteNumber = dom.byId("siteNumber");
+        var projectName = dom.byId("projectName");
+        var christeningNumber = dom.byId("christeningNumber");
+        var christeningDate = dom.byId("christeningDate");
+        var poNumber = dom.byId("poNumber");
+        var poDate = dom.byId("poDate");
+        var customerContact = dom.byId("customerContact");
+        var address = dom.byId("address");
+        var quantity1 = dom.byId("quantity1");
+        var kind1 = dom.byId("kind1");
+        var description1 = dom.byId("description1");
+        var partNumber1 = dom.byId("partNumber1");
+        var counter = dom.byId("counter");
+
+        // data collector
+        dojo.ready(function () {
+          request
+            .post("edit.jsp", {
+              data: { poNumber: window.location.search.substring(10) }
+            })
+            .response.then(
+              function (response) {
+                console.log(response.data);
+                var data = JSON.parse(response.data);
+                customerName.innerHTML = data.customerName;
+                customerNumber.innerHTML = data.customerNumber;
+                siteNumber.innerHTML = data.siteNumber;
+                projectName.innerHTML = data.projectName;
+                christeningNumber.innerHTML = data.christeningNumber;
+                christeningDate.innerHTML = data.christeningDate;
+                poNumber.innerHTML = data.poNumber;
+                poDate.innerHTML = data.poDate;
+                customerContact.innerHTML = data.customerContact;
+                address.innerHTML = data.address;
+                var quantity = data.quantity.split("#");
+                var kind = data.kind.split("#");
+                var description = data.description.split("#");
+                var partNumber = data.partNumber.split("#");
+                quantity1.innerHTML = quantity[0];
+                kind1.innerHTML = kind[0];
+                description1.innerHTML = description[0];
+                partNumber1.innerHTML = partNumber[0];
+                counter.setAttribute("value", data.counter);
+                cnt = data.counter;
+
+                for (var i = 2; i <= counter.value; i++) {
+                  var row = domConstruct.toDom(
+                    `<div class="mb-3 row">
+                      <div class="col-sm-3 px-0">
+                        <span>${Number(quantity[i - 1])}</span>
+                      </div>
+
+                      <div class="col-sm-3 px-0">      
+                        <span>${Number(kind[i - 1])}</span>
+                      </div>
+
+                      <div class="col-sm-3 px-0">      
+                        <span>${Number(description[i - 1])}</span>
+                      </div>
+
+                      <div class="col-sm-3 px-0">      
+                        <span>${Number(partNumber[i - 1])}</span>
+                      </div>
+                    </div>`
+                  );
+
+                  domConstruct.place(row, rowBody, "last");
+                }
+              },
+              function (error) {
+                console.log("error: " + error);
+              }
+            );
+        });
+      });
+    </script>
+  </body>
+</html>
