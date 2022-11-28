@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8" />
+  <head>
+    <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- this stylesheet is for dojo dijit style (claro specifically) -->
@@ -10,93 +10,245 @@
       href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css"
       media="screen"
     />
-    
-<link rel="stylesheet" type="text/css"
-	href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/resources/claroGrid.css">
-    
-        <!-- Dojo CDN Script -->
-    <script data-dojo-Config="parseOnLoad: true"
-	src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"></script>
-        
 
-<!-- load dojo and provide config via data attribute -->
-	
-	<script type="text/javascript">
-            dojo.require("dijit.form.Form");
-            dojo.require("dijit.form.TextBox");
-            dojo.require("dijit.form.Button");
-            dojo.require("dijit.layout.ContentPane");
-            dojo.require("dojox.grid.DataGrid");
-            
-            
-        </script>
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
 
-<style type="text/css">
-        .screen {height: 100%; width: 100%; margin: 0; padding: 0;};
-        </style>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/resources/claroGrid.css"
+    />
 
-<title>License</title>
+    <!-- Dojo CDN Script -->
+    <script
+      data-dojo-Config="parseOnLoad: true"
+      src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"
+    ></script>
 
-    </head>
+    <!-- load dojo and provide config via data attribute -->
 
-    <body class="screen claro">
-        
-<div style="background: ghostwhite; width: 100%;  color: darkblue" align="center">
-           
-                <table cellpadding="0" cellspacing="0" border="1" id="gridId">
-		<thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Project Name</th>
-                        <th>Edit License</th>
-                        <th>Print As PDF</th>
-                    </tr>
-                </thead>
+    <script type="text/javascript">
+      dojo.require("dijit.form.Form");
+      dojo.require("dijit.form.TextBox");
+      dojo.require("dijit.form.Button");
+      dojo.require("dijit.layout.ContentPane");
+      dojo.require("dojox.grid.DataGrid");
+    </script>
+
+    <style type="text/css"></style>
+
+    <title>Licenses</title>
+  </head>
+
+  <body class="screen claro">
+    <!-- Button trigger modal -->
+    <div class="my-5 text-center">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Record</button>
+    </div>
+
+    <!-- Striped table -->
+    <div class="container mt-3">
+      <table class="table table-striped text-center">
+        <thead>
+          <tr>
+            <th scope="col">Project Number</th>
+            <th scope="col">Project Name</th>
+            <th scope="col">Edit</th>
+            <th scope="col">Print</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+          
+          <!-- Modal header -->
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New Record</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form>
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="customerName" class="col-form-label">DataServe Customer Name:</label>
+                  <label for="customerName" class="col-form-label">:اسم العميل لدى داتاسيرف</label>
+                </div>
+                <input type="text" class="form-control text-center" id="customerName" name="customerName" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="customerNumber" class="col-form-label">DataServe Customer Number:</label>
+                  <label for="customerNumber" class="col-form-label">:رقم العميل لدى داتاسيرف</label>
+                </div>
+                <input type="number" class="form-control text-center" id="customerNumber" name="customerNumber" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="siteNumber" class="col-form-label">DataServe Site Number:</label>
+                  <label for="siteNumber" class="col-form-label">:رقم موقع داتاسيرف</label>
+                </div>
+                <input type="text" class="form-control text-center" id="siteNumber" name="siteNumber" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="projectName" class="col-form-label">Project Name as per RFP:</label>
+                  <label for="projectName" class="col-form-label">:اسم المشروع</label>
+                </div>
+                <input type="text" class="form-control text-center" id="projectName" name="projectName" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="christeningNumber" class="col-form-label">Christening Number:</label>
+                  <label for="christeningNumber" class="col-form-label">:رقم التعميد</label>
+                </div>
+                <input type="text" class="form-control text-center" id="christeningNumber" name="christeningNumber" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="christeningDate" class="col-form-label">Christening Date:</label>
+                  <label for="christeningDate" class="col-form-label">:تاريخ التعميد</label>
+                </div>
+                <input type="date" class="form-control text-center" id="christeningDate" name="christeningDate" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="poNumber" class="col-form-label">Customer P.O Reference Number:</label>
+                  <label for="poNumber" class="col-form-label">:رقم العقد</label>
+                </div>
+                <input type="number" class="form-control text-center" id="poNumber" name="poNumber" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="poDate" class="col-form-label">P.O Date:</label>
+                  <label for="poDate" class="col-form-label">:تاريخ العقد</label>
+                </div>
+                <input type="date" class="form-control text-center" id="poDate" name="poDate" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="customerContact" class="col-form-label">Customer Contact:</label>
+                  <label for="customerContact" class="col-form-label">:رقم التواصل بالعميل</label>
+                </div>
+                <input type="text" class="form-control text-center" id="customerContact" name="customerContact" required/>
+              </div>
+              
+              <div class="mb-3">
+                <div class="d-flex justify-content-between">
+                  <label for="address" class="col-form-label">Address:</label>
+                  <label for="address" class="col-form-label">:عنوان العميل</label>
+                </div>
+                <input type="text" class="form-control text-center" id="address" name="address" required/>
+              </div>
+              
+              <div class="mb-3 row">
+                <div class="col-sm-3">      
+                  <div class="d-flex justify-content-between">
+                    <label for="quantity1" class="col-form-label">Quantity:</label>
+                    <label for="quantity1" class="col-form-label">:الكمية</label>
+                  </div>
+                  <input type="number" class="form-control text-center" id="quantity1" name="quantity1" required/>
+                </div>
                 
-                </table>
-            
-        <br>
-        </div>
-        
-        <a href="form.html">add new form</a>
-        
-        <script type="text/javascript">
-        require(["dojo",
-        	"dojo/dom",
-                "dojo/on",
-                "dojo/request",
-                "dojo/dom-construct",
-                "dojo/domReady!"],function(dojo, dom, on, request, domConstruct){
-                    var grid = dom.byId("gridId");
-                    dojo.ready(function(){
-        		request.post("view.jsp", {handleAs: "json"}).response.then(
-            			function(response) {
-                                    var dataStore = response.data;
-                                    for (obj of dataStore) {
-                                        var row = domConstruct.toDom(
-                                            `<tr>
-                                            <td>${obj.poNumber}</td>
-                                            <td>${obj.projectName}</td>
-                                            <td><a href='form.html?poNumber=${obj.poNumber}'>Edit</a></td>
-                                            <td><a href='#'>Print</a></td>
-                                            </tr>`
-                                       );
-                                        domConstruct.place(row, grid, "last");
-                                        console.log(obj);
-                                    }
+                <div class="col-sm-3">      
+                  <div class="d-flex justify-content-between">
+                    <label for="kind1" class="col-form-label">Type:</label>
+                    <label for="kind1" class="col-form-label">:النوع</label>
+                  </div>
+                  <input type="text" class="form-control text-center" id="kind1" name="kind1" required/>
+                </div>
+                
+                <div class="col-sm-3">      
+                  <div class="d-flex justify-content-between">
+                    <label for="description1" class="col-form-label">Description:</label>
+                    <label for="description1" class="col-form-label">:الوصف</label>
+                  </div>
+                  <input type="text" class="form-control text-center" id="description1" name="description1" required/>
+                </div>
+                
+                <div class="col-sm-3">      
+                  <div class="d-flex justify-content-between">
+                    <label for="partNumber1" class="col-form-label">Part Number:</label>
+                    <label for="partNumber1" class="col-form-label">:الرقم</label>
+                  </div>
+                  <input type="text" class="form-control text-center" id="partNumber1" name="partNumber1" required/>
+                </div>
+              </div>
+              
+              <div class="col-auto text-center">
+                <button type="submit" name="Submit" value="Add" class="btn btn-primary m-4">Add</button>
+              </div>
+              
+            </form>
+          </div>
 
-                                   // place the new row as the last child element of the grid
-                                    console.log(dataStore);
-            			},
-            			function(error) {
-            				console.log("error: " + error);
-            			});
-        		
-        	});
-        	
-        	
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save Record</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="text/javascript">
+      require([
+        "dojo",
+        "dojo/dom",
+        "dojo/on",
+        "dojo/request",
+        "dojo/dom-construct",
+        "dojo/domReady!",
+      ], function (dojo, dom, on, request, domConstruct) {
+        var tbody = dom.byId("tbody");
+        dojo.ready(function () {
+          request.post("view.jsp", { handleAs: "json" }).response.then(
+            function (response) {
+              var dataStore = response.data;
+              for (obj of dataStore) {
+                var row = domConstruct.toDom(
+                  `<tr>
+                    <td>${obj.poNumber}</td>
+                    <td>${obj.projectName}</td>
+                    <td><a href='form.html?poNumber=${obj.poNumber}'>Edit</a></td>
+                    <td><a href='#'>Print</a></td>
+                  </tr>`
+                );
+                domConstruct.place(row, tbody, "last");
+                console.log(obj);
+              }
+            },
+            function (error) {
+              console.log("error: " + error);
+            }
+          );
         });
-        
-        </script>
-    </body>
+      });
+    </script>
+  </body>
 </html>
