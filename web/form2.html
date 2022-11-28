@@ -313,6 +313,7 @@
         	});
         });
         
+        // record deleter
         on(dltRecordBtn, "click", function(){
           request.post("delete.jsp",{
             data: {poNumber: window.location.search.substring(10)}
