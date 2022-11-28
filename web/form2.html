@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html id="html">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -30,7 +30,7 @@
 
   <body>
 
-    <!-- Modal body -->
+    <!-- container body -->
     <div class="my-5 container">
       <form method="post" id="myForm">
         <div class="mb-3">
@@ -38,7 +38,7 @@
             <label for="customerName" class="col-form-label">DataServe Customer Name:</label>
             <label for="customerName" class="col-form-label">:اسم العميل لدى داتاسيرف</label>
           </div>
-          <input type="text" class="form-control text-center" id="customerName" name="customerName" required/>
+          <input type="text" class="form-control text-center" id="customerName" name="customerName" placeholder="e.g. Ministry of Energy" required/>
         </div>
 
         <div class="mb-3">
@@ -46,7 +46,7 @@
             <label for="customerNumber" class="col-form-label">DataServe Customer Number:</label>
             <label for="customerNumber" class="col-form-label">:رقم العميل لدى داتاسيرف</label>
           </div>
-          <input type="number" class="form-control text-center" id="customerNumber" name="customerNumber" required/>
+          <input type="number" class="form-control text-center" id="customerNumber" name="customerNumber" placeholder="e.g. 123" required/>
         </div>
 
         <div class="mb-3">
@@ -54,7 +54,7 @@
             <label for="siteNumber" class="col-form-label">DataServe Site Number:</label>
             <label for="siteNumber" class="col-form-label">:رقم موقع داتاسيرف</label>
           </div>
-          <input type="text" class="form-control text-center" id="siteNumber" name="siteNumber" required/>
+          <input type="text" class="form-control text-center" id="siteNumber" name="siteNumber" placeholder="e.g. 1-00-259-5116-00 Code ID 00001" required/>
         </div>
 
         <div class="mb-3">
@@ -62,7 +62,7 @@
             <label for="projectName" class="col-form-label">Project Name as per RFP:</label>
             <label for="projectName" class="col-form-label">:اسم المشروع</label>
           </div>
-          <input type="text" class="form-control text-center" id="projectName" name="projectName" required/>
+          <input type="text" class="form-control text-center" id="projectName" name="projectName" placeholder="e.g. مشروع تطوير نظام الاتصالات الادارية ومركز حفظ الوثائق والمحفوظات" required/>
         </div>
 
         <div class="mb-3">
@@ -70,7 +70,7 @@
             <label for="christeningNumber" class="col-form-label">Christening Number:</label>
             <label for="christeningNumber" class="col-form-label">:رقم التعميد</label>
           </div>
-          <input type="text" class="form-control text-center" id="christeningNumber" name="christeningNumber" pattern="^[0-9/]+$" required/>
+          <input type="text" class="form-control text-center" id="christeningNumber" name="christeningNumber" pattern="^[0-9/]+$" placeholder="e.g. 1442/24/100" required/>
         </div>
 
         <div class="mb-3">
@@ -102,7 +102,7 @@
             <label for="customerContact" class="col-form-label">Customer Contact:</label>
             <label for="customerContact" class="col-form-label">:رقم التواصل بالعميل</label>
           </div>
-          <input type="text" class="form-control text-center" id="customerContact" name="customerContact" pattern="^[0-9+]+$" required/>
+          <input type="text" class="form-control text-center" id="customerContact" name="customerContact" pattern="^[0-9+]+$" placeholder="e.g. +966 55 5500550" required/>
         </div>
 
         <div class="mb-3">
@@ -110,7 +110,7 @@
             <label for="address" class="col-form-label">Address:</label>
             <label for="address" class="col-form-label">:عنوان العميل</label>
           </div>
-          <input type="text" class="form-control text-center" id="address" name="address" required/>
+          <input type="text" class="form-control text-center" id="address" name="address" placeholder="e.g. Digital city - PJRP+JR, An Nakheel, Ad Diriyah SA, Riyadh 11564" required/>
         </div>
 
         <div id="rowBody">
@@ -120,7 +120,7 @@
                 <label for="quantity1" class="col-form-label">Quantity:</label>
                 <label for="quantity1" class="col-form-label">:الكمية</label>
               </div>
-              <input type="text" class="form-control text-center" id="quantity1" name="quantity1" pattern="^[0-9#]+$" required/>
+              <input type="text" class="form-control text-center" id="quantity1" name="quantity1" pattern="^[0-9#]+$" placeholder="e.g. 1500" required/>
             </div>
 
             <div class="col-sm-3">      
@@ -128,7 +128,7 @@
                 <label for="kind1" class="col-form-label">Type:</label>
                 <label for="kind1" class="col-form-label">:النوع</label>
               </div>
-              <input type="text" class="form-control text-center" id="kind1" name="kind1" required/>
+              <input type="text" class="form-control text-center" id="kind1" name="kind1" placeholder="e.g. مستخدم/موظف" required/>
             </div>
 
             <div class="col-sm-3">      
@@ -136,7 +136,7 @@
                 <label for="description1" class="col-form-label">Description:</label>
                 <label for="description1" class="col-form-label">:الوصف</label>
               </div>
-              <input type="text" class="form-control text-center" id="description1" name="description1" required/>
+              <input type="text" class="form-control text-center" id="description1" name="description1" placeholder="e.g Perpetual license" required/>
             </div>
 
             <div class="col-sm-3">      
@@ -144,7 +144,7 @@
                 <label for="partNumber1" class="col-form-label">Part Number:</label>
                 <label for="partNumber1" class="col-form-label">:الرقم</label>
               </div>
-              <input type="text" class="form-control text-center" id="partNumber1" name="partNumber1" required/>
+              <input type="text" class="form-control text-center" id="partNumber1" name="partNumber1" placeholder="e.g. DS-Sy001" required/>
             </div>
           </div>
         </div>
@@ -181,6 +181,7 @@
         "dojo/dom-form",
         "dojo/domReady!"
       ], function (dojo, dom, on, request, domConstruct, domForm) {
+        var html = dom.byId("html");
         var form = dom.byId("myForm");
         var rowBody = dom.byId("rowBody");
         var addRowBtn = dom.byId("addRowBtn");
@@ -287,6 +288,9 @@
             </div>`
           );
           domConstruct.place(row, rowBody, "last");
+          
+          // this code will keep the scroll bar down when new row is added
+          html.scrollTop = html.scrollHeight - html.clientHeight;
         });
         
         // rows destroyer
