@@ -100,7 +100,7 @@ public class DBConnection {
 
         try {
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("select * from forms");
+            PreparedStatement ps = con.prepareStatement("select * from forms ORDER BY id DESC");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 LicensesInfo info = new LicensesInfo();
