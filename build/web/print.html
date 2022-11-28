@@ -16,6 +16,11 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
+    
+    
+    <!-- JSPDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
 
     <!-- Dojo CDN Script -->
     <script
@@ -33,7 +38,7 @@
     <title>Licenses</title>
   </head>
 
-  <body>
+  <body id="body">
     <!-- container body -->
     <div class="my-5 container">
       <div class="mb-3">
@@ -287,6 +292,26 @@
 
                   domConstruct.place(row, rowBody, "last");
                 }
+                
+                //
+                // pdf code
+                async function generatePDF() {
+                  var downloading = document.getElementById("body");
+                  var doc = new jsPDF("p", "pt", "a4");
+
+                  await html2canvas(downloading, {
+                    //allowTaint: true,
+                    //useCORS: true,
+                    width: 100
+                  }).then((canvas) => {
+                    //Canvas (convert to PNG)
+                    doc.addImage(canvas.toDataURL("image/png"), "PNG", 5, 5, 900, 400);
+                  });
+
+                  doc.save( window.location.search.substring(10) + ".pdf");
+                }
+
+                generatePDF();
               },
               function (error) {
                 console.log("error: " + error);
