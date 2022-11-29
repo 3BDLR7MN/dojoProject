@@ -74,6 +74,11 @@
         color: darkblue;
       }
       
+      #qrcode {
+          height: 150px;
+          width: 150px;
+      }
+      
       p {
         background-color: darkblue;
         color: white;
@@ -95,7 +100,8 @@
         <img src="image/DSImg.png" alt="DataServe Logo" />
       </div>
 
-      <div class="d-flex align-items-center justify-content-end text-end" id="badge">
+      <div class="d-flex align-items-center justify-content-between text-end" id="badge">
+        <img src="" alt="QRCode" id="qrcode">
         <span>
           رخصة&#160;إثبات&#160;الاستحقاق
           <br />Software license Proof of Entitlements
@@ -292,6 +298,7 @@
 
     <script>
       var cnt = 1;
+      var jsonObj;
 
       require([
         "dojo",
@@ -303,6 +310,7 @@
         "dojo/domReady!"
       ], function (dojo, dom, on, request, domConstruct, domForm) {
         var rowBody = dom.byId("rowBody");
+        var qrcode = dom.byId("qrcode");
 
         var customerName = dom.byId("customerName");
         var customerNumber = dom.byId("customerNumber");
@@ -322,13 +330,14 @@
 
         // data collector
         dojo.ready(function () {
-          request
+          async function pageMaker(){
+          await request
             .post("edit.jsp", {
               data: { poNumber: window.location.search.substring(10) }
             })
             .response.then(
               function (response) {
-                console.log(response.data);
+                jsonObj = response.data;
                 var data = JSON.parse(response.data);
                 customerName.innerHTML = data.customerName;
                 customerNumber.innerHTML = data.customerNumber;
@@ -359,15 +368,15 @@
                       </div>
 
                       <div class="col-sm-3 px-0">      
-                        <span>${Number(kind[i - 1])}</span>
+                        <span>${kind[i - 1]}</span>
                       </div>
 
                       <div class="col-sm-3 px-0">      
-                        <span>${Number(description[i - 1])}</span>
+                        <span>${description[i - 1]}</span>
                       </div>
 
                       <div class="col-sm-3 px-0">      
-                        <span>${Number(partNumber[i - 1])}</span>
+                        <span>${partNumber[i - 1]}</span>
                       </div>
                     </div>
                     <hr />`
@@ -375,22 +384,46 @@
 
                   domConstruct.place(row, rowBody, "last");
                 }
-
-                //
-                const invoice = document.getElementById("body");
-                var opt = {
-                  margin: 0,
-                  filename: window.location.search.substring(10) + ".pdf",
-                  image: { type: "jpeg", quality: 1 },
-                  html2canvas: { scale: 2 },
-                  jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
-                };
-                html2pdf().from(invoice).set(opt).save();
+                
+                // qr img src
+                qrcode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${jsonObj}&size=100x100`;
+//                var newimg = domConstruct.toDom(`<img src="https://api.qrserver.com/v1/create-qr-code/?data=${jsonObj}&size=100x100">`);
+//                domConstruct.place(newimg, qrcode, "replace");
               },
               function (error) {
                 console.log("error: " + error);
               }
             );
+          }
+          
+//          await request
+//            .get("https://api.qrserver.com/v1/create-qr-code/", {
+//              data: jsonObj
+//            })
+//            .response.then(
+//              function (response) {
+//                console.log(response.data);
+//              },
+//              function (error) {
+//                console.log("error: " + error);
+//              }
+//            );
+
+          // pdf code
+          async function pdfMaker() {
+            await pageMaker();
+            const invoice = document.getElementById("body");
+            var opt = {
+              margin: 0,
+              filename: window.location.search.substring(10) + ".pdf",
+              image: { type: "jpeg", quality: 1 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+            };
+            html2pdf().from(invoice).set(opt).save();
+          }
+          
+          pdfMaker();
         });
       });
     </script>
