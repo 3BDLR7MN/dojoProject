@@ -339,24 +339,24 @@
               function (response) {
                 jsonObj = response.data;
                 var data = JSON.parse(response.data);
-                customerName.innerHTML = data.customerName;
-                customerNumber.innerHTML = data.customerNumber;
-                siteNumber.innerHTML = data.siteNumber;
-                projectName.innerHTML = data.projectName;
-                christeningNumber.innerHTML = data.christeningNumber;
-                christeningDate.innerHTML = data.christeningDate;
-                poNumber.innerHTML = data.poNumber;
-                poDate.innerHTML = data.poDate;
-                customerContact.innerHTML = data.customerContact;
-                address.innerHTML = data.address;
+                customerName.innerHTML = data.customerName.replace(new RegExp(" ", 'g'), "&#160;");
+                customerNumber.innerHTML = data.customerNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                siteNumber.innerHTML = data.siteNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                projectName.innerHTML = data.projectName.replace(new RegExp(" ", 'g'), "&#160;");
+                christeningNumber.innerHTML = data.christeningNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                christeningDate.innerHTML = data.christeningDate.replace(new RegExp(" ", 'g'), "&#160;");
+                poNumber.innerHTML = data.poNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                poDate.innerHTML = data.poDate.replace(new RegExp(" ", 'g'), "&#160;");
+                customerContact.innerHTML = data.customerContact.replace(new RegExp(" ", 'g'), "&#160;");
+                address.innerHTML = data.address.replace(new RegExp(" ", 'g'), "&#160;");
                 var quantity = data.quantity.split("#");
                 var kind = data.kind.split("#");
                 var description = data.description.split("#");
                 var partNumber = data.partNumber.split("#");
                 quantity1.innerHTML = quantity[0];
-                kind1.innerHTML = kind[0];
-                description1.innerHTML = description[0];
-                partNumber1.innerHTML = partNumber[0];
+                kind1.innerHTML = kind[0].replace(new RegExp(" ", 'g'), "&#160;");
+                description1.innerHTML = description[0].replace(new RegExp(" ", 'g'), "&#160;");
+                partNumber1.innerHTML = partNumber[0].replace(new RegExp(" ", 'g'), "&#160;");
                 counter.setAttribute("value", data.counter);
                 cnt = data.counter;
 
@@ -387,27 +387,12 @@
                 
                 // qr img src
                 qrcode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${jsonObj}&size=100x100`;
-//                var newimg = domConstruct.toDom(`<img src="https://api.qrserver.com/v1/create-qr-code/?data=${jsonObj}&size=100x100">`);
-//                domConstruct.place(newimg, qrcode, "replace");
               },
               function (error) {
                 console.log("error: " + error);
               }
             );
           }
-          
-//          await request
-//            .get("https://api.qrserver.com/v1/create-qr-code/", {
-//              data: jsonObj
-//            })
-//            .response.then(
-//              function (response) {
-//                console.log(response.data);
-//              },
-//              function (error) {
-//                console.log("error: " + error);
-//              }
-//            );
 
           // pdf code
           async function pdfMaker() {
