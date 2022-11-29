@@ -1,0 +1,46 @@
+.banner {
+	height: 100px;
+    padding: 15px 100px;
+    box-shadow: 0px 0px 10px #bdbdbd;
+}
+
+.banner img {
+	height: -webkit-fill-available;
+	float: left;
+}
+.ProjectName {
+    float: left;
+    font-size: 23px;
+    font-weight: bold;
+    padding: 10px 40px;
+    margin-top: 7px;
+    margin-left: 35px;
+    border-left: 1px solid #a3a3a3;
+    padding-left: 30px;
+}
+.banner2 {
+margin: 0px !important;
+    padding: 0px 0px;
+}
+
+
+.banner2 label {
+	float:right;
+    margin: 10px;
+}
+
+.banner2 input {
+	float: right;
+    margin: 2px 0px;
+    border-radius: 5px;
+    border: 1px solid #b6b6b6;
+    padding: 5px;
+}
+
+.banner2 .container {
+	    background: whitesmoke;
+    padding: 15px;
+    border-radius: 0px 0px 6px 6px;
+    border-top: 1px solid #e1e1e1;
+    box-shadow: 0px 5px 5px #dedede;
+}
