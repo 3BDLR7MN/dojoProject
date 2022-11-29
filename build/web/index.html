@@ -237,8 +237,8 @@
                   `<tr>
                     <td>${obj.poNumber}</td>
                     <td>${obj.projectName}</td>
-                    <td><a href='form2.html?poNumber=${obj.poNumber}'>${editIcon}</a></td>
-                    <td><a href='print2.html?poNumber=${obj.poNumber}'>${printIcon}</a></td>
+                    <td><a href="form2.html?poNumber=${obj.poNumber}">${editIcon}</a></td>
+                    <td><a href="print2.html?poNumber=${obj.poNumber}" target="_blank">${printIcon}</a></td>
                   </tr>`
                 );
                 domConstruct.place(row, tbody, "last");
