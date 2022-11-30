@@ -11,6 +11,7 @@
         LicensesInfo info = new LicensesInfo();
         info.setPoNumber(Integer.parseInt(request.getParameter("poNumber")));
         info.setCounter(Integer.parseInt(request.getParameter("counter")));
+        info.setLogin_id(Integer.parseInt(session.getAttribute("id")));
 
         info.setCustomerName(request.getParameter("customerName"));
         info.setCustomerNumber(request.getParameter("customerNumber"));

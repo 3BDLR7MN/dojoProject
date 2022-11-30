@@ -95,6 +95,51 @@ public class DBConnection {
         return info;
     }
     
+    public static userInfo getUserById(int id) {
+        userInfo user = null;
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from user where id = ?");
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new userInfo();
+                user.setId(rs.getInt("id"));
+                
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setStatus(rs.getString("status"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
+    public static userInfo userLogin(String email, String password) {
+        userInfo user = null;
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from user where email = ? AND password = ?");
+            ps.setString(1, email);
+            ps.setString(2, password);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                user = new userInfo();
+                user.setId(rs.getInt("id"));
+                
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setStatus(rs.getString("status"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+    
     public static List<LicensesInfo> getAllRecords() {
         List<LicensesInfo> list = new ArrayList<LicensesInfo>();
 
@@ -121,6 +166,30 @@ public class DBConnection {
                 info.setDescription(rs.getString("description"));
                 info.setPartNumber(rs.getString("partNumber"));
                 list.add(info);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return list;
+    }
+    
+    public static List<userInfo> getAllUsers() {
+        List<userInfo> list = new ArrayList<userInfo>();
+
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from user ORDER BY id DESC");
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                userInfo user = new userInfo();
+                user.setId(rs.getInt("id"));
+                
+                user.setName(rs.getString("name"));
+                user.setEmail(rs.getString("email"));
+                user.setPassword(rs.getString("password"));
+                user.setStatus(rs.getString("status"));
+                list.add(user);
             }
         } catch (Exception e) {
             e.printStackTrace();

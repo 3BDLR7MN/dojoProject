@@ -1,3 +1,9 @@
+<%@page import="javaPack.LicensesInfo"%>
+<%@page import="javaPack.DBConnection"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%  
+        if (null != session.getAttribute("name")){
+%>
 <!DOCTYPE html>
 <html id="html">
   <head>
@@ -238,21 +244,21 @@
 
               for (var i = 2; i <= counter.value; i++){
                 var row = domConstruct.toDom(
-                  `<div class="mb-3 row" id="row${i}">
+                  `<div class="mb-3 row" id="row`+i+`">
                     <div class="col-sm-3">      
-                      <input type="text" class="form-control text-center" id="quantity${i}" name="quantity${i}" value="${Number(quantity[i-1])}" pattern="^[0-9#]+$" required/>
+                      <input type="text" class="form-control text-center" id="quantity`+i+`" name="quantity`+i+`" value="` + Number(quantity[i-1]) +`" pattern="^[0-9#]+$" required/>
                     </div>
 
                     <div class="col-sm-3">      
-                      <input type="text" class="form-control text-center" id="kind${i}" name="kind${i}" value="${kind[i-1]}" required/>
+                      <input type="text" class="form-control text-center" id="kind`+i+`" name="kind`+i+`" value="`+kind[i-1]+`" required/>
                     </div>
 
                     <div class="col-sm-3">      
-                      <input type="text" class="form-control text-center" id="description${i}" name="description${i}" value="${description[i-1]}" required/>
+                      <input type="text" class="form-control text-center" id="description`+i+`" name="description`+i+`" value="`+description[i-1]+`" required/>
                     </div>
 
                     <div class="col-sm-3">      
-                      <input type="text" class="form-control text-center" id="partNumber${i}" name="partNumber${i}" value="${partNumber[i-1]}" required/>
+                      <input type="text" class="form-control text-center" id="partNumber`+i+`" name="partNumber`+i+`" value="`+partNumber[i-1]+`" required/>
                     </div>
                   </div>`
                 );
@@ -269,21 +275,21 @@
         on(addRowBtn, "click", function(){
           counter.value = ++cnt;
           var row = domConstruct.toDom(
-            `<div class="mb-3 row" id="row${cnt}">
+            `<div class="mb-3 row" id="row`+cnt+`">
               <div class="col-sm-3">      
-                <input type="text" class="form-control text-center" id="quantity${cnt}" name="quantity${cnt}" pattern="^[0-9*#+]+$" required/>
+                <input type="text" class="form-control text-center" id="quantity`+cnt+`" name="quantity`+cnt+`" pattern="^[0-9*#+]+$" required/>
               </div>
 
               <div class="col-sm-3">      
-                <input type="text" class="form-control text-center" id="kind${cnt}" name="kind${cnt}" required/>
+                <input type="text" class="form-control text-center" id="kind`+cnt+`" name="kind`+cnt+`" required/>
               </div>
 
               <div class="col-sm-3">      
-                <input type="text" class="form-control text-center" id="description${cnt}" name="description${cnt}" required/>
+                <input type="text" class="form-control text-center" id="description`+cnt+`" name="description`+cnt+`" required/>
               </div>
 
               <div class="col-sm-3">      
-                <input type="text" class="form-control text-center" id="partNumber${cnt}" name="partNumber${cnt}" required/>
+                <input type="text" class="form-control text-center" id="partNumber`+cnt+`" name="partNumber`+cnt+`" required/>
               </div>
             </div>`
           );
@@ -296,7 +302,7 @@
         // rows destroyer
         on(dltRowBtn, "click", function() {
           if (cnt > 1) {
-            domConstruct.destroy(dom.byId(`row${cnt--}`));
+            domConstruct.destroy(dom.byId("row" + cnt--));
             counter.value = cnt;
           }
         });
@@ -307,10 +313,10 @@
           evt.preventDefault();
           poNumber.removeAttribute('disabled');
           for (var i = 2; i <= cnt; i++) {
-            dom.byId("quantity1").value += "#" + dom.byId(`quantity${i}`).value;
-            dom.byId("kind1").value += "#" + dom.byId(`kind${i}`).value;
-            dom.byId("description1").value += "#" + dom.byId(`description${i}`).value;
-            dom.byId("partNumber1").value += "#" + dom.byId(`partNumber${i}`).value;
+            dom.byId("quantity1").value += "#" + dom.byId("quantity"+i).value;
+            dom.byId("kind1").value += "#" + dom.byId("kind"+i).value;
+            dom.byId("description1").value += "#" + dom.byId("description"+i).value;
+            dom.byId("partNumber1").value += "#" + dom.byId("partNumber"+i).value;
           }
           request.post("add.jsp",{
         	data: domForm.toObject(form)
@@ -339,8 +345,13 @@
         // cancel btn
         on(cancelBtn, "click", function(){
           document.location.href = "index.html";
-        })
+        });
       });
     </script>
   </body>
 </html>
+<%
+    } else {
+        response.sendRedirect("login.html");
+    }
+%>

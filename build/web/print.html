@@ -16,11 +16,9 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
-    
-    
-    <!-- JSPDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.debug.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+
+    <!-- html2pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 
     <!-- Dojo CDN Script -->
     <script
@@ -29,9 +27,61 @@
     ></script>
 
     <style>
+      * {
+        padding: 0;
+        margin: 0;
+      }
+
+      #cont {
+        background-color: #EFEFFF;
+        border-bottom-left-radius: 25px;
+        border-bottom-right-radius: 25px;
+        padding-bottom: 25px;
+        margin-bottom: 175px;
+      }
+      #header,
+      #badge {
+        color: darkblue;
+      }
+      #header > span {
+        font-weight: bolder;
+        font-size: 150%;
+      }
+      #badge > span {
+        font-weight: bolder;
+        font-size: 160%;
+      }
+      hr {
+        background-color: darkblue;
+        height: 2px;
+        border-width: 0;
+      }
+
+      #formBody {
+        background-color: white;
+        border-radius: 25px;
+      }
+      #formBody > hr,
+      #rowBody > hr {
+        background-color: grey;
+        height: 2px;
+        border-width: 0;
+      }
+
+      #license > span {
+        font-weight: bolder;
+        font-size: 150%;
+        color: darkblue;
+      }
+      
+      #qrcode {
+          height: 150px;
+          width: 150px;
+      }
+      
       p {
-          background-color: darkblue;
-          color: white;
+        background-color: darkblue;
+        color: white;
       }
     </style>
 
@@ -40,176 +90,215 @@
 
   <body id="body">
     <!-- container body -->
-    <div class="my-5 container">
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>DataServe Customer Name</span>
+    <div class="container-xxl px-5" id="cont">
+      <!-- head body -->
+      <div class="d-flex align-items-center justify-content-between mb-5" id="header">
+        <span class="text-end">
+          الشركة&#160;الوطنية&#160;لخدمة&#160;البيانات&#160;والحلول&#160;المتكاملة
+          <br />National DataServe & Turnkey Solution Co
+        </span>
+        <img src="../image/DSImg.png" alt="DataServe Logo" />
+      </div>
+
+      <div class="d-flex align-items-center justify-content-between text-end" id="badge">
+        <img src="" alt="QRCode" id="qrcode">
+        <span>
+          رخصة&#160;إثبات&#160;الاستحقاق
+          <br />Software license Proof of Entitlements
+        </span>
+      </div>
+      <hr />
+
+      <!-- form body -->
+      <div id="formBody" class="py-3 px-4 mb-3">
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>DataServe Customer Name</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="customerName"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>اسم&#160;العميل&#160;لدى&#160;داتاسيرف</span>
+            </div>
           </div>
-          <div class="col-sm-4 text-center">
-            <span id="customerName"></span>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>DataServe Customer Number</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="customerNumber"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>رقم&#160;العميل&#160;لدى&#160;داتاسيرف</span>
+            </div>
           </div>
-          <div class="col-sm-4 text-end">
-            <span>اسم العميل لدى داتاسيرف</span>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>DataServe Site Number</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="siteNumber"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>رقم&#160;موقع&#160;داتاسيرف</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>Project Name as per RFP</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="projectName"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>اسم&#160;المشروع</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>Christening Number</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="christeningNumber"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>رقم&#160;التعميد</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>Christening Date</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="christeningDate"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>تاريخ&#160;التعميد</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>Customer P.O Reference Number</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="poNumber"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>رقم&#160;العقد</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>P.O Date</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="poDate"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>تاريخ&#160;العقد</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>Customer Contact</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="customerContact"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>رقم&#160;التواصل&#160;بالعميل</span>
+            </div>
+          </div>
+        </div>
+        <hr />
+
+        <div class="mb-3">
+          <div class="row">
+            <div class="col-sm-4">
+              <span>Address</span>
+            </div>
+            <div class="col-sm-4 text-center">
+              <span id="address"></span>
+            </div>
+            <div class="col-sm-4 text-end">
+              <span>عنوان&#160;العميل</span>
+            </div>
           </div>
         </div>
       </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>DataServe Customer Number</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="customerNumber"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>رقم العميل لدى داتاسيرف</span>
-          </div>
-        </div>
+    </div>
+
+    <!-- row body -->
+    <div class="container-xl px-5" id="cont2">
+      <div class="d-flex align-items-center justify-content-between text-end mb-4" id="license">
+        <span>Licenses List</span>
+        <span>قائمة&#160;الرخص</span>
       </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>DataServe Site Number</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="siteNumber"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>رقم موقع داتاسيرف</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>Project Name as per RFP</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="projectName"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>اسم المشروع</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>Christening Number</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="christeningNumber"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>رقم التعميد</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>Christening Date</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="christeningDate"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>تاريخ التعميد</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>Customer P.O Reference Number</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="poNumber"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>رقم العقد</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>P.O Date</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="poDate"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>تاريخ العقد</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>Customer Contact</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="customerContact"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>رقم التواصل بالعميل</span>
-          </div>
-        </div>
-      </div>
-      
-      <div class="mb-3">
-        <div class="row">
-          <div class="col-sm-4">
-            <span>Address</span>
-          </div>
-          <div class="col-sm-4 text-center">
-            <span id="address"></span>
-          </div>
-          <div class="col-sm-4 text-end">
-            <span>عنوان العميل</span>
-          </div>
-        </div>
-      </div>
-      
       <div id="rowBody" class="text-center">
         <div class="mb-3 row">
           <div class="col-sm-3 px-0">
-            <p>الكمية<br>Quantity</p>
+            <p>الكمية<br />Quantity</p>
             <span id="quantity1"></span>
           </div>
 
           <div class="col-sm-3 px-0">
-            <p>النوع<br>Type</p>
+            <p>النوع<br />Type</p>
             <span id="kind1"></span>
           </div>
 
           <div class="col-sm-3 px-0">
-            <p>الوصف<br>Description</p>
+            <p>الوصف<br />Description</p>
             <span id="description1"></span>
           </div>
 
           <div class="col-sm-3 px-0">
-            <p>الرقم<br>Part Number</p>
+            <p>الرقم<br />Part Number</p>
             <span id="partNumber1"></span>
           </div>
         </div>
+        <hr />
       </div>
-
-      <input type="hidden" id="counter" name="counter" value="1" />
     </div>
+
+    <input type="hidden" id="counter" name="counter" value="1" />
 
     <script>
       var cnt = 1;
+      var jsonObj;
 
       require([
         "dojo",
@@ -221,6 +310,7 @@
         "dojo/domReady!"
       ], function (dojo, dom, on, request, domConstruct, domForm) {
         var rowBody = dom.byId("rowBody");
+        var qrcode = dom.byId("qrcode");
 
         var customerName = dom.byId("customerName");
         var customerNumber = dom.byId("customerNumber");
@@ -240,32 +330,33 @@
 
         // data collector
         dojo.ready(function () {
-          request
+          async function pageMaker(){
+          await request
             .post("edit.jsp", {
               data: { poNumber: window.location.search.substring(10) }
             })
             .response.then(
               function (response) {
-                console.log(response.data);
+                jsonObj = response.data;
                 var data = JSON.parse(response.data);
-                customerName.innerHTML = data.customerName;
-                customerNumber.innerHTML = data.customerNumber;
-                siteNumber.innerHTML = data.siteNumber;
-                projectName.innerHTML = data.projectName;
-                christeningNumber.innerHTML = data.christeningNumber;
-                christeningDate.innerHTML = data.christeningDate;
-                poNumber.innerHTML = data.poNumber;
-                poDate.innerHTML = data.poDate;
-                customerContact.innerHTML = data.customerContact;
-                address.innerHTML = data.address;
+                customerName.innerHTML = data.customerName.replace(new RegExp(" ", 'g'), "&#160;");
+                customerNumber.innerHTML = data.customerNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                siteNumber.innerHTML = data.siteNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                projectName.innerHTML = data.projectName.replace(new RegExp(" ", 'g'), "&#160;");
+                christeningNumber.innerHTML = data.christeningNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                christeningDate.innerHTML = data.christeningDate.replace(new RegExp(" ", 'g'), "&#160;");
+                poNumber.innerHTML = data.poNumber.replace(new RegExp(" ", 'g'), "&#160;");
+                poDate.innerHTML = data.poDate.replace(new RegExp(" ", 'g'), "&#160;");
+                customerContact.innerHTML = data.customerContact.replace(new RegExp(" ", 'g'), "&#160;");
+                address.innerHTML = data.address.replace(new RegExp(" ", 'g'), "&#160;");
                 var quantity = data.quantity.split("#");
                 var kind = data.kind.split("#");
                 var description = data.description.split("#");
                 var partNumber = data.partNumber.split("#");
                 quantity1.innerHTML = quantity[0];
-                kind1.innerHTML = kind[0];
-                description1.innerHTML = description[0];
-                partNumber1.innerHTML = partNumber[0];
+                kind1.innerHTML = kind[0].replace(new RegExp(" ", 'g'), "&#160;");
+                description1.innerHTML = description[0].replace(new RegExp(" ", 'g'), "&#160;");
+                partNumber1.innerHTML = partNumber[0].replace(new RegExp(" ", 'g'), "&#160;");
                 counter.setAttribute("value", data.counter);
                 cnt = data.counter;
 
@@ -277,46 +368,47 @@
                       </div>
 
                       <div class="col-sm-3 px-0">      
-                        <span>${Number(kind[i - 1])}</span>
+                        <span>${kind[i - 1]}</span>
                       </div>
 
                       <div class="col-sm-3 px-0">      
-                        <span>${Number(description[i - 1])}</span>
+                        <span>${description[i - 1]}</span>
                       </div>
 
                       <div class="col-sm-3 px-0">      
-                        <span>${Number(partNumber[i - 1])}</span>
+                        <span>${partNumber[i - 1]}</span>
                       </div>
-                    </div>`
+                    </div>
+                    <hr />`
                   );
 
                   domConstruct.place(row, rowBody, "last");
                 }
                 
-                //
-                // pdf code
-                async function generatePDF() {
-                  var downloading = document.getElementById("body");
-                  var doc = new jsPDF("p", "pt", "a4");
-
-                  await html2canvas(downloading, {
-                    //allowTaint: true,
-                    //useCORS: true,
-                    width: 100
-                  }).then((canvas) => {
-                    //Canvas (convert to PNG)
-                    doc.addImage(canvas.toDataURL("image/png"), "PNG", 5, 5, 900, 400);
-                  });
-
-                  doc.save( window.location.search.substring(10) + ".pdf");
-                }
-
-                generatePDF();
+                // qr img src
+                qrcode.src = `https://api.qrserver.com/v1/create-qr-code/?data=${jsonObj}&size=100x100`;
               },
               function (error) {
                 console.log("error: " + error);
               }
             );
+          }
+
+          // pdf code
+          async function pdfMaker() {
+            await pageMaker();
+            const invoice = document.getElementById("body");
+            var opt = {
+              margin: 0,
+              filename: window.location.search.substring(10) + ".pdf",
+              image: { type: "jpeg", quality: 1 },
+              html2canvas: { scale: 2 },
+              jsPDF: { unit: "in", format: "a4", orientation: "portrait" }
+            };
+            html2pdf().from(invoice).set(opt).save();
+          }
+          
+          pdfMaker();
         });
       });
     </script>

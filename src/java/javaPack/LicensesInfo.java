@@ -1,9 +1,16 @@
 package javaPack;
 
 public class LicensesInfo {
-    private int poNumber, counter;
+    private int login_id, poNumber, counter;
     private String customerName, customerNumber, siteNumber, projectName, christeningNumber, christeningDate, poDate, customerContact, address, quantity, kind, description, partNumber;
     public boolean exist = false;
+	
+    public int getLogin_id() {
+	return login_id;
+    }
+    public void setLogin_id(int login_id) {
+	this.login_id = login_id;
+    }
 	
     public int getPoNumber() {
 	return poNumber;

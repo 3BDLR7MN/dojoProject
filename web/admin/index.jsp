@@ -1,3 +1,10 @@
+<%@page import="javaPack.LicensesInfo"%>
+<%@page import="javaPack.DBConnection"%>
+<%@page import="javaPack.userInfo"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%  
+        if (null != session.getAttribute("admin")){
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -29,45 +36,45 @@
   </head>
 
   <body>
-    <nav class="ps-4 navbar navbar-expand-lg" style="background-color: #e3f2fd">
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
       <div class="container-fluid">
-      	<a class="navbar-brand" href="index.html"><img src="image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
-      	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
-      	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      		<div class="navbar-nav">
-              <a class="nav-link active" href="index.html">Records</a>
-              <a class="nav-link" href="user/index.jsp">User</a>
-              <a class="nav-link" href="admin/index.jsp">Admin</a>
-      		</div>
-          <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
-          </form>
-      	</div>
+        <a class="navbar-brand" href="../index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" href="index.jsp">Home</a>
+            <a class="nav-link" href="add.jsp">Add new user</a>
+            <a class="nav-link" href="logout.jsp">Logout</a>
+          </div>
+        </div>
       </div>
-	</nav>
-    
+    </nav>    
+
     <!-- Striped table -->
     <div class="container mt-3">
       <table id="myTable" class="table table-striped text-center">
         <thead>
           <tr>
-            <th scope="col">P.O Number</th>
-            <th scope="col">Project Name</th>
-            <th class="skip-filter" scope="col">Print</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Status</th>
+            <th class="skip-filter" scope="col">Edit</th>
           </tr>
         </thead>
         <tbody id="tbody"></tbody>
       </table>
     </div>
-    
-    <script>
-      var printIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>`
+
+    <script>  
       require([
+        "dojo",
         "dojo/dom",
         "dojo/on",
         "dojo/request",
-        "dojo/domReady!"
-      ], function (dom, on, request) {
+        "dojo/dom-construct",
+        "dojo/dom-form",
+        "dojo/domReady!",
+      ], function (dojo, dom, on, request, domConstruct, domForm) {
         var tbody = dom.byId("tbody");
         
         // striped table builder
@@ -79,9 +86,10 @@
               for (obj of dataStore) {
                 var row = domConstruct.toDom(
                   `<tr>
-                    <td>`+obj.poNumber+`</td>
-                    <td>`+obj.projectName+`</td>
-                    <td><a href="print.html?poNumber=`+obj.poNumber+`" target="_blank">`+printIcon+`</a></td>
+                    <td>`+obj.name+`</td>
+                    <td>`+obj.email+`</td>
+                    <td>`+obj.status+`</td>
+                    <td><a href="user.jsp?id=`+obj.id+`">`+editIcon+`</a></td>
                   </tr>`
                 );
                 domConstruct.place(row, tbody, "last");
@@ -92,7 +100,6 @@
             }
           );
         });
-
       });
     </script>
     
@@ -114,3 +121,8 @@
     </script>
   </body>
 </html>
+<%
+    } else {
+        response.sendRedirect("login.html");
+    }
+%>
