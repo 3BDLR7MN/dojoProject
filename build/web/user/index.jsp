@@ -40,9 +40,10 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" href="index.jsp">Home</a>
-            <a class="nav-link" href="add.jsp">Add new user</a>
             <a class="nav-link" href="logout.jsp">Logout</a>
+          </div>
+          <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
           </div>
         </div>
       </div>
@@ -51,11 +52,6 @@
     <!-- Button trigger modal -->
     <div class="mt-5 text-center">
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New Record</button>
-    </div>
-    
-    <!-- search bar -->
-    <div class="mb-5 text-center">
-      <input class="ms-2 my-3" type="search" id="myInput" placeholder="Search">
     </div>
     
 
