@@ -354,6 +354,6 @@
 </html>
 <%
     } else {
-        response.sendRedirect("login.html");
+        response.sendRedirect("loginPage.jsp");
     }
 %>

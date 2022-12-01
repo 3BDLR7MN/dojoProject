@@ -13,7 +13,7 @@
             if (user == null) {
                 out.print(0);
             } else {
-                session.setAttribute("id",user.getId());
+                session.setAttribute("id", user.getId());
                 session.setAttribute("name",user.getName());
                 out.print(1);
             }

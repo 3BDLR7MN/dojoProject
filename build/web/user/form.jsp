@@ -1,5 +1,3 @@
-<%@page import="javaPack.LicensesInfo"%>
-<%@page import="javaPack.DBConnection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%  
         if (null != session.getAttribute("name")){
@@ -35,6 +33,21 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="../index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
+        <span class="navbar-text">Welcome <%=session.getAttribute("name")%></span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link" href="logout.jsp">Logout</a>
+          </div>
+          <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
+          </div>
+        </div>
+      </div>
+    </nav>
 
     <!-- container body -->
     <div class="my-5 container">
@@ -322,7 +335,7 @@
         	data: domForm.toObject(form)
           }).response.then(
         	function(response) {
-              document.location.href = "index.html";
+              document.location.href = "index.jsp";
         	},
         	function(error) {
               console.log("error: " + error);
@@ -335,7 +348,7 @@
             data: {poNumber: window.location.search.substring(10)}
           }).response.then(
             function(response) {
-              document.location.href = "index.html";
+              document.location.href = "index.jsp";
             },
             function(error) {
               console.log("error: " + error);
@@ -344,7 +357,7 @@
         
         // cancel btn
         on(cancelBtn, "click", function(){
-          document.location.href = "index.html";
+          document.location.href = "index.jsp";
         });
       });
     </script>
@@ -352,6 +365,6 @@
 </html>
 <%
     } else {
-        response.sendRedirect("login.html");
+        response.sendRedirect("index.jsp");
     }
 %>

@@ -1,3 +1,7 @@
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%  
+        if (null == session.getAttribute("name")){
+%>
 <!DOCTYPE html>
 <html>
   <head>
@@ -94,3 +98,8 @@
     </script>
   </body>
 </html>
+<%
+    } else {
+        response.sendRedirect("index.jsp");
+    }
+%>

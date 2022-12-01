@@ -19,7 +19,7 @@ public class DBConnection {
         return con;
     }
     
-    public static int save(LicensesInfo info) {
+    public static int save(int login_id, LicensesInfo info) {
         int status = 0;
         String sql = "";
         LicensesInfo infoExists = getRecordById(info.getPoNumber());
@@ -28,9 +28,9 @@ public class DBConnection {
             if(con != null){ 
                 
                 if(infoExists != null) {
-                    sql = "UPDATE forms SET customerName = ?, customerNumber = ?, siteNumber = ?, projectName = ?, christeningNumber = ?, christeningDate = ?, poDate = ?, customerContact = ?, address = ?, quantity = ?, kind = ?, description = ?, partNumber = ?, counter = ? WHERE forms.poNumber = ?";
+                    sql = "UPDATE forms SET customerName = ?, customerNumber = ?, siteNumber = ?, projectName = ?, christeningNumber = ?, christeningDate = ?, poDate = ?, customerContact = ?, address = ?, quantity = ?, kind = ?, description = ?, partNumber = ?, counter = ?, login_id = ? WHERE forms.poNumber = ?";
                 } else if (infoExists == null) {
-                    sql = "INSERT INTO forms(customerName, customerNumber, siteNumber, projectName, christeningNumber, christeningDate, poDate, customerContact, address, quantity, kind, description, partNumber, counter, poNumber) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                    sql = "INSERT INTO forms(customerName, customerNumber, siteNumber, projectName, christeningNumber, christeningDate, poDate, customerContact, address, quantity, kind, description, partNumber, counter, login_id, poNumber) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
                 } else {
                     return status;
                 }
@@ -50,7 +50,8 @@ public class DBConnection {
                 ps.setString(12, info.getDescription());
                 ps.setString(13, info.getPartNumber());
                 ps.setInt(14, info.getCounter());
-                ps.setInt(15, info.getPoNumber());
+                ps.setInt(15, login_id);
+                ps.setInt(16, info.getPoNumber());
                 status = ps.executeUpdate();
             } else {
                 System.out.println("Problem with connection please try again later!");
@@ -69,6 +70,39 @@ public class DBConnection {
             Connection con = getConnection();
             PreparedStatement ps = con.prepareStatement("select * from forms where poNumber = ?");
             ps.setInt(1, customerPONumber);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                info = new LicensesInfo();
+                info.setPoNumber(rs.getInt("poNumber"));
+                info.setCounter(rs.getInt("counter"));
+                
+                info.setCustomerName(rs.getString("customerName"));
+                info.setCustomerNumber(rs.getString("customerNumber"));
+                info.setSiteNumber(rs.getString("siteNumber"));
+                info.setProjectName(rs.getString("projectName"));
+                info.setChristeningNumber(rs.getString("christeningNumber"));
+                info.setChristeningDate(rs.getString("christeningDate"));
+                info.setPoDate(rs.getString("poDate"));
+                info.setCustomerContact(rs.getString("customerContact"));
+                info.setAddress(rs.getString("address"));
+                info.setQuantity(rs.getString("quantity"));
+                info.setKind(rs.getString("kind"));
+                info.setDescription(rs.getString("description"));
+                info.setPartNumber(rs.getString("partNumber"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return info;
+    }
+    
+    public static LicensesInfo getUserRecordById(int login_id, int customerPONumber) {
+        LicensesInfo info = null;
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from forms where login_id = ? AND poNumber = ?");
+            ps.setInt(1, login_id);
+            ps.setInt(2, customerPONumber);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 info = new LicensesInfo();
@@ -174,6 +208,41 @@ public class DBConnection {
         return list;
     }
     
+    public static List<LicensesInfo> getAllUserRecords(int login_id) {
+        List<LicensesInfo> list = new ArrayList<LicensesInfo>();
+
+        try {
+            Connection con = getConnection();
+            PreparedStatement ps = con.prepareStatement("select * from forms where login_id = ? ORDER BY id DESC");
+            ps.setInt(1, login_id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LicensesInfo info = new LicensesInfo();
+                info.setPoNumber(rs.getInt("poNumber"));
+                info.setCounter(rs.getInt("counter"));
+                
+                info.setCustomerName(rs.getString("customerName"));
+                info.setCustomerNumber(rs.getString("customerNumber"));
+                info.setSiteNumber(rs.getString("siteNumber"));
+                info.setProjectName(rs.getString("projectName"));
+                info.setChristeningNumber(rs.getString("christeningNumber"));
+                info.setChristeningDate(rs.getString("christeningDate"));
+                info.setPoDate(rs.getString("poDate"));
+                info.setCustomerContact(rs.getString("customerContact"));
+                info.setAddress(rs.getString("address"));
+                info.setQuantity(rs.getString("quantity"));
+                info.setKind(rs.getString("kind"));
+                info.setDescription(rs.getString("description"));
+                info.setPartNumber(rs.getString("partNumber"));
+                list.add(info);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
+        return list;
+    }
+    
     public static List<userInfo> getAllUsers() {
         List<userInfo> list = new ArrayList<userInfo>();
 
@@ -198,12 +267,13 @@ public class DBConnection {
         return list;
     }
     
-    public static int deleteRecord(int customerPONumber) {
+    public static int deleteRecord(int login_id,int customerPONumber) {
         int status = 0;
         try {
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("DELETE from forms where poNumber = ?");
-            ps.setInt(1, customerPONumber);
+            PreparedStatement ps = con.prepareStatement("DELETE from forms where login_id = ? AND poNumber = ?");
+            ps.setInt(1, login_id);
+            ps.setInt(2, customerPONumber);
             status = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
