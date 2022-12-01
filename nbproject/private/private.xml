@@ -4,8 +4,19 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/index.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/view.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/logout.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/edit.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/edit.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/view.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/form.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/delete.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/login.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/src/java/javaPack/DBConnection.java</file>
             <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/index.html</file>
-            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/login.html</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/add.jsp</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/src/java/javaPack/userInfo.java</file>
+            <file>file:/C:/Users/3BDLR7MN/Documents/NetBeansProjects/dojoProject/web/user/loginPage.jsp</file>
         </group>
     </open-files>
 </project-private>

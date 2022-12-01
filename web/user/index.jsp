@@ -33,7 +33,7 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+    <nav class="ps-4 navbar navbar-expand-lg" style="background-color: #e3f2fd">
       <div class="container-fluid">
         <a class="navbar-brand" href="../index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
         <span class="navbar-text">Welcome <%=session.getAttribute("name")%></span>

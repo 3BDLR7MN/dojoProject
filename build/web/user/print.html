@@ -33,23 +33,21 @@
       }
 
       #cont {
-        background-color: #EFEFFF;
+        background-color: pink;
         border-bottom-left-radius: 25px;
         border-bottom-right-radius: 25px;
         padding-bottom: 25px;
-        margin-bottom: 175px;
+        margin-bottom: 50px;
       }
       #header,
       #badge {
         color: darkblue;
       }
-      #header > span {
-        font-weight: bolder;
-        font-size: 150%;
-      }
       #badge > span {
-        font-weight: bolder;
-        font-size: 160%;
+            font-weight: bolder;
+		    font-size: 20px;
+		    margin-top: 15px;
+	        margin-bottom: 20px;
       }
       hr {
         background-color: darkblue;
@@ -59,7 +57,7 @@
 
       #formBody {
         background-color: white;
-        border-radius: 25px;
+        border-radius: 16px;
       }
       #formBody > hr,
       #rowBody > hr {
@@ -74,15 +72,53 @@
         color: darkblue;
       }
       
-      #qrcode {
-          height: 150px;
-          width: 150px;
-      }
-      
       p {
         background-color: darkblue;
         color: white;
       }
+      
+      
+      
+
+#cont {
+    background-color: #EFEFFF !important;
+}
+#header {
+	border-bottom: 1px solid #bababa;
+	border-bottom: 1px solid #bababa;
+    height: 140px
+}
+
+#header img {
+	height: 100px !important;
+    margin: 20px !important;
+    float:right;
+}
+#header > span {
+font-weight: bolder;
+    font-size: 20px;
+    float: right;
+    margin-right: 10px;
+    margin-top: 50px;
+}
+#formBody .row_item {
+    padding: 5px 0px;
+    border-bottom: 2px solid #c3c3c3;
+}
+#formBody .row_item:last-child {
+	 border-bottom: 0px solid #c3c3c3;
+}
+
+#formBody .row_item span {
+font-size: 12px;
+    font-weight: bold;
+   }
+   
+   #cont2 {
+   		padding: 0px 50px !important;
+   }
+
+
     </style>
 
     <title>Licenses</title>
@@ -92,12 +128,13 @@
     <!-- container body -->
     <div class="container-xxl px-5" id="cont">
       <!-- head body -->
-      <div class="d-flex align-items-center justify-content-between mb-5" id="header">
+      <div id="header">
+      	<img src="../image/logo_ds.svg" alt="DataServe Logo" />
         <span class="text-end">
           الشركة&#160;الوطنية&#160;لخدمة&#160;البيانات&#160;والحلول&#160;المتكاملة
           <br />National DataServe & Turnkey Solution Co
         </span>
-        <img src="../image/DSImg.png" alt="DataServe Logo" />
+        
       </div>
 
       <div class="d-flex align-items-center justify-content-between text-end" id="badge">
@@ -107,11 +144,11 @@
           <br />Software license Proof of Entitlements
         </span>
       </div>
-      <hr />
+     
 
       <!-- form body -->
       <div id="formBody" class="py-3 px-4 mb-3">
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>DataServe Customer Name</span>
@@ -124,9 +161,9 @@
             </div>
           </div>
         </div>
-        <hr />
+      
 
-        <div class="mb-3">
+       <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>DataServe Customer Number</span>
@@ -139,9 +176,9 @@
             </div>
           </div>
         </div>
-        <hr />
+ 
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>DataServe Site Number</span>
@@ -154,9 +191,9 @@
             </div>
           </div>
         </div>
-        <hr />
+    
 
-        <div class="mb-3">
+       <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>Project Name as per RFP</span>
@@ -169,9 +206,9 @@
             </div>
           </div>
         </div>
-        <hr />
+   
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>Christening Number</span>
@@ -184,9 +221,9 @@
             </div>
           </div>
         </div>
-        <hr />
+    
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>Christening Date</span>
@@ -199,9 +236,9 @@
             </div>
           </div>
         </div>
-        <hr />
+     
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>Customer P.O Reference Number</span>
@@ -214,9 +251,9 @@
             </div>
           </div>
         </div>
-        <hr />
+    
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>P.O Date</span>
@@ -229,9 +266,9 @@
             </div>
           </div>
         </div>
-        <hr />
+       
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>Customer Contact</span>
@@ -244,9 +281,9 @@
             </div>
           </div>
         </div>
-        <hr />
+      
 
-        <div class="mb-3">
+        <div class="row_item">
           <div class="row">
             <div class="col-sm-4">
               <span>Address</span>
@@ -263,7 +300,7 @@
     </div>
 
     <!-- row body -->
-    <div class="container-xl px-5" id="cont2">
+    <div id="cont2">
       <div class="d-flex align-items-center justify-content-between text-end mb-4" id="license">
         <span>Licenses List</span>
         <span>قائمة&#160;الرخص</span>
