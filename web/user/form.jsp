@@ -35,7 +35,7 @@
   <body>
     <nav class="ps-4 navbar navbar-expand-lg" style="background-color: #e3f2fd">
       <div class="container-fluid">
-        <a class="navbar-brand" href="../index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
+        <a class="navbar-brand" href="../visitor/index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
         <span class="navbar-text">Welcome <%=session.getAttribute("name")%></span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">

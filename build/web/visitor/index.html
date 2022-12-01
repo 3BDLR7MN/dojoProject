@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Bootstrap -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Dojo CDN Script -->
+    <script
+      data-dojo-Config="parseOnLoad: true"
+      src="https://ajax.googleapis.com/ajax/libs/dojo/1.14.1/dojo/dojo.js"
+    ></script>
+
+    <style></style>
+
+    <title>Licenses</title>
+  </head>
+
+  <body>
+    <nav class="ps-4 navbar navbar-expand-lg" style="background-color: #e3f2fd">
+      <div class="container-fluid">
+      	<a class="navbar-brand" href="index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
+      	<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
+      	<div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      		<div class="navbar-nav">
+              <a class="nav-link active" href="index.html">Records</a>
+              <a class="nav-link" href="../user/index.jsp">User</a>
+              <a class="nav-link" href="../admin/index.jsp">Admin</a>
+      		</div>
+          <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
+          </div>
+      	</div>
+      </div>
+	</nav>
+    
+    <!-- Striped table -->
+    <div class="container mt-3">
+      <table id="myTable" class="table table-striped text-center">
+        <thead>
+          <tr>
+            <th scope="col">P.O Number</th>
+            <th scope="col">Project Name</th>
+            <th class="skip-filter" scope="col">Print</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+    </div>
+    
+    <script>
+      var printIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-printer" viewBox="0 0 16 16"><path d="M2.5 8a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/><path d="M5 1a2 2 0 0 0-2 2v2H2a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h1v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1h1a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-1V3a2 2 0 0 0-2-2H5zM4 3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v2H4V3zm1 5a2 2 0 0 0-2 2v1H2a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-1v-1a2 2 0 0 0-2-2H5zm7 2v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-3a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1z"/></svg>`
+      require([
+        "dojo/dom",
+        "dojo/on",
+        "dojo/request",
+        "dojo/dom-construct",
+        "dojo/domReady!"
+      ], function (dom, on, request, domConstruct) {
+        var tbody = dom.byId("tbody");
+        
+        // striped table builder
+        dojo.ready(function () {
+          request.post("view.jsp", { handleAs: "json" }).response.then(
+            function (response) {
+              console.log(response.data)
+              var dataStore = response.data;
+              for (obj of dataStore) {
+                var row = domConstruct.toDom(
+                  `<tr>
+                    <td>`+obj.poNumber+`</td>
+                    <td>`+obj.projectName+`</td>
+                    <td><a href="print.html?poNumber=`+obj.poNumber+`" target="_blank">`+printIcon+`</a></td>
+                  </tr>`
+                );
+                domConstruct.place(row, tbody, "last");
+              }
+            },
+            function (error) {
+              console.log("error: " + error);
+            }
+          );
+        });
+
+      });
+    </script>
+    
+    <!-- search algorithm -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="ddtf.js"></script>
+    <script>
+      $('#myTable').ddTableFilter();
+    </script>
+    <script>
+      $(document).ready(function(){
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#tbody tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
