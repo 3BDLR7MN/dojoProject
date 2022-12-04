@@ -151,7 +151,6 @@
                         if (Number(response.data) === 0) {
                           password.setAttribute("value", "");
                           alert("This email already exists!");
-                          password.setAttribute("value", "");
                         } else if (Number(response.data) === 1){
                           document.location.href = "index.jsp";
                         }
