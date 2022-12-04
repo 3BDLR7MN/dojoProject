@@ -8,7 +8,7 @@
         try{
             // we create a new object of the class defiend in java that makes the connection
             DBConnection con = new DBConnection();
-            out.print(con.getAllRecords());
+            out.print(con.getAllUsers());
         } catch (Exception e){
             out.print(e);
         }

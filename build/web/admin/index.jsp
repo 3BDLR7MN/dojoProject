@@ -36,19 +36,26 @@
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #e3f2fd">
+    <nav class="ps-4 navbar navbar-expand-lg" style="background-color: #e3f2fd">
       <div class="container-fluid">
         <a class="navbar-brand" href="../index.html"><img src="../image/logo_ds.svg" alt="DataServe logo" width="125" height="60" /></a>
+        <span class="navbar-text">Welcome Admin</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"><span class="navbar-toggler-icon"></span></button>
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
-            <a class="nav-link active" href="index.jsp">Home</a>
-            <a class="nav-link" href="add.jsp">Add new user</a>
             <a class="nav-link" href="logout.jsp">Logout</a>
+          </div>
+          <div class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" id="myInput" placeholder="Search" aria-label="Search">
           </div>
         </div>
       </div>
-    </nav>    
+    </nav> 
+    
+    <!-- Button trigger modal -->
+    <div class="mt-5 text-center">
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New User</button>
+    </div>
 
     <!-- Striped table -->
     <div class="container mt-3">
@@ -64,8 +71,60 @@
         <tbody id="tbody"></tbody>
       </table>
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          
+          <!-- Modal header -->
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">New User</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
 
-    <script>  
+          <!-- Modal body -->
+          <div class="modal-body">
+            <form method="post" id="myForm">
+              <div class="mb-3 row">
+                  <div class="col-sm-6">
+                    <input type="text" class="form-control text-center" id="userName" name="userName" placeholder="Full Name" required/>
+                </div>
+                  <div class="col-sm-6">
+                    <input type="email" class="form-control text-center" id="userEmail" name="userEmail" placeholder="Email" required/>
+                </div>
+              </div>
+              
+              <div class="mb-3 row">
+                  <div class="col-sm-12">
+                    <input type="password" class="form-control text-center" id="userPassword" name="userPassword" placeholder="Password" required/>
+                </div>
+<!--                  <div class="col-sm-3">
+                    <select class="form-select text-center" id="userStatus" name="userStatus">
+                        <option selected value="">Current Status: </option>
+                        <option value="active">Activate</option>
+                        <option value="inactive">Deactivate</option>
+                    </select>
+                  </div>-->
+              </div>
+              
+              <input type="hidden" id="userStatus" name="userStatus" value="active" />
+              
+            </form>
+          </div>
+
+          <!-- Modal footer -->
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" form="myForm" class="btn btn-success">Save User</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var editIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-pencil-square" viewBox="0 0 16 16"><path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/><path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/></svg>`
+      
       require([
         "dojo",
         "dojo/dom",
@@ -76,6 +135,7 @@
         "dojo/domReady!",
       ], function (dojo, dom, on, request, domConstruct, domForm) {
         var tbody = dom.byId("tbody");
+        var form = dom.byId("myForm");
         
         // striped table builder
         dojo.ready(function () {
@@ -89,7 +149,7 @@
                     <td>`+obj.name+`</td>
                     <td>`+obj.email+`</td>
                     <td>`+obj.status+`</td>
-                    <td><a href="user.jsp?id=`+obj.id+`">`+editIcon+`</a></td>
+                    <td><a href="user.jsp?id=`+obj.id+`&email=`+obj.email+`&status=`+obj.status+`">`+editIcon+`</a></td>
                   </tr>`
                 );
                 domConstruct.place(row, tbody, "last");
@@ -100,6 +160,26 @@
             }
           );
         });
+        
+        // form submitter
+        on(form, "submit", function(evt) {
+          evt.stopPropagation();
+          evt.preventDefault();
+          request.post("add.jsp",{
+        	data: domForm.toObject(form),
+          }).response.then(
+        	function(response) {
+              if (Number(response.data) === 0) {
+                alert("This email already exists!");
+              } else if (Number(response.data) === 1){
+                form.reset();
+                location.reload();
+              }
+        	},
+        	function(error) {
+              console.log("error: " + error);
+        	});
+        })
       });
     </script>
     
@@ -123,6 +203,6 @@
 </html>
 <%
     } else {
-        response.sendRedirect("login.html");
+        response.sendRedirect("loginPage.jsp");
     }
 %>
