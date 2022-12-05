@@ -58,13 +58,15 @@
       <div class="row">
       	<div class="col-sm-5"></div>
       	<div class="col-sm-2 position-relative password">
-          <input type="password" name="password" class="form-control" placeholder="Password" required>
+          <input type="password" id="showPassword" name="showPassword" class="form-control" placeholder="Password" required>
       	</div>
       	<div class="col-sm-5"></div>
       </div>
       <div class="col-auto text-center">
       	<button type="submit" name="submit" class="btn btn-primary m-4">Log In</button>
       </div>
+          
+            <input type="hidden" id="password" name="password">
 	</form>
     
     <script>
@@ -76,15 +78,27 @@
         "dojo/domReady!"
       ], function (dom, on, request, domForm) {
         var form = dom.byId("form");
+        var showPassword = dom.byId("showPassword");
+        var password = dom.byId("password");
+        
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
         
         on(form, "submit", function(evt){
           evt.stopPropagation();
           evt.preventDefault();
+          password.setAttribute("value", utf8_to_b64(showPassword.value));
           request.post("login.jsp",{
         	data: domForm.toObject(form)
           }).response.then(
         	function(response) {
               if (Number(response.data) === 0) {
+                password.setAttribute("value", "");
                 alert("Wrong Email or password!");
               } else if (Number(response.data) === 1){
                 window.location.replace("index.jsp");

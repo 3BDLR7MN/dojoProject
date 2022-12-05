@@ -97,7 +97,7 @@
               
               <div class="mb-3 row">
                   <div class="col-sm-12">
-                    <input type="password" class="form-control text-center" id="userPassword" name="userPassword" placeholder="Password" required/>
+                    <input type="password" class="form-control text-center" id="showPassword" name="showPassword" placeholder="Password" required/>
                 </div>
 <!--                  <div class="col-sm-3">
                     <select class="form-select text-center" id="userStatus" name="userStatus">
@@ -108,6 +108,7 @@
                   </div>-->
               </div>
               
+              <input type="hidden" id="userPassword" name="userPassword"/>
               <input type="hidden" id="userStatus" name="userStatus" value="active" />
               
             </form>
@@ -136,6 +137,16 @@
       ], function (dojo, dom, on, request, domConstruct, domForm) {
         var tbody = dom.byId("tbody");
         var form = dom.byId("myForm");
+        var showPassword = dom.byId("showPassword");
+        var password = dom.byId("userPassword");
+        
+        function utf8_to_b64(str) {
+            return window.btoa(unescape(encodeURIComponent(str)));
+        }
+
+        function b64_to_utf8(str) {
+            return decodeURIComponent(escape(window.atob(str)));
+        }
         
         // striped table builder
         dojo.ready(function () {
@@ -165,11 +176,13 @@
         on(form, "submit", function(evt) {
           evt.stopPropagation();
           evt.preventDefault();
+          password.setAttribute("value", utf8_to_b64(showPassword.value));
           request.post("add.jsp",{
         	data: domForm.toObject(form),
           }).response.then(
         	function(response) {
               if (Number(response.data) === 0) {
+                password.setAttribute("value", "");
                 alert("This email already exists!");
               } else if (Number(response.data) === 1){
                 form.reset();

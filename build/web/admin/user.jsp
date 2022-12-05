@@ -68,7 +68,7 @@
             <div class="mx-5 my-3 row">
               <div class="col-sm-3"></div>
               <div class="col-sm-3 position-relative">
-                <input type="password" id="userPassword" name="userPassword" value="" class="form-control" placeholder="User password">
+                <input type="password" id="showPassword" name="showPassword" value="" class="form-control" placeholder="User password">
               </div>
               <div class="col-sm-3">
                 <div class="input-group" id="show_hide_password">
@@ -84,6 +84,7 @@
 
             <input type="hidden" id="oldEmail" name="oldEmail" value="<%=request.getParameter("email")%>">
             <input type="hidden" id="userId" name="userId" value="<%=request.getParameter("id")%>">
+            <input type="hidden" id="userPassword" name="userPassword" value="">
 
               <div class="mx-5 my-3 row">
                 <div class="col-sm-3"></div>
@@ -117,8 +118,17 @@
             var cancelBtn = dom.byId("cancelBtn");
 
             var name = dom.byId("userName");
+            var showPassword = dom.byId("showPassword");
             var password = dom.byId("userPassword");
             var oldPass;
+            
+            function utf8_to_b64(str) {
+                return window.btoa(unescape(encodeURIComponent(str)));
+            }
+
+            function b64_to_utf8(str) {
+                return decodeURIComponent(escape(window.atob(str)));
+            }
             
             console.log('<%=request.getParameter("email")%>');
           
@@ -130,7 +140,7 @@
                 function(response) {
                   var data = JSON.parse(response.data);
                   name.setAttribute("value", data.name);
-                  oldPass = data.password;
+                  oldPass = b64_to_utf8(data.password);
                 },
                 function(error) {
                   console.log("error: " + error);
@@ -141,8 +151,10 @@
             on(form, "submit", function(evt){
                 evt.stopPropagation();
                 evt.preventDefault();
-                if (password.value === "") {
-                    password.setAttribute("value", oldPass);
+                if (showPassword.value === "") {
+                    password.setAttribute("value", utf8_to_b64(oldPass));
+                } else {
+                    password.setAttribute("value", utf8_to_b64(showPassword.value));
                 }
                 request.post("add.jsp",{
                     data: domForm.toObject(form)
