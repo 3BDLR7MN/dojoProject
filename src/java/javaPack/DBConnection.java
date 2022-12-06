@@ -217,10 +217,9 @@ public class DBConnection {
         userInfo user = null;
         try {
             Connection con = getConnection();
-            PreparedStatement ps = con.prepareStatement("select * from user where email = ? AND password = ? AND status = ?");
+            PreparedStatement ps = con.prepareStatement("select * from user where email = ? AND password = ?");
             ps.setString(1, email);
             ps.setString(2, password);
-            ps.setString(3, "active");
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 user = new userInfo();

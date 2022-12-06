@@ -101,6 +101,9 @@
                 password.setAttribute("value", "");
                 alert("Wrong Email or password!");
               } else if (Number(response.data) === 1){
+                password.setAttribute("value", "");
+                alert("This user is inactive!");
+              } else if (Number(response.data) === 2) {
                 window.location.replace("index.jsp");
               }
         	},

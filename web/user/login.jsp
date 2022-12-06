@@ -13,9 +13,13 @@
             if (user == null) {
                 out.print(0);
             } else {
-                session.setAttribute("id", user.getId());
-                session.setAttribute("name",user.getName());
-                out.print(1);
+                if(user.getStatus().equals("inactive")) {
+                    out.print(1);
+                } else {
+                    session.setAttribute("id", user.getId());
+                    session.setAttribute("name",user.getName());
+                    out.print(2);
+                }
             }
 
         } catch (Exception e){

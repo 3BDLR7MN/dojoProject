@@ -332,6 +332,27 @@
         	});
         })
       });
+      
+    // timeout code
+    var inactivityTime = function () {
+        var time;
+        window.onload = resetTimer;
+        // DOM Events
+        document.onmousemove = resetTimer;
+        document.onkeydown = resetTimer;
+
+        function logout() {
+            location.href = 'logout.jsp'
+        }
+
+        function resetTimer() {
+            clearTimeout(time);
+            time = setTimeout(logout, 300000)
+            // 1000 milliseconds = 1 second
+            // 300000 = 5 minutes
+        }
+    };
+    inactivityTime();
     </script>
     
     <!-- search algorithm -->
